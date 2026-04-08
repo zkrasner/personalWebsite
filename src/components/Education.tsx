@@ -14,9 +14,8 @@ export default function Education() {
           <div className="font-heading font-bold text-[1.2rem]">
             {education.school}
           </div>
-          <div className="italic text-body my-1">
-            {education.degree} — {education.years}
-          </div>
+          <div className="italic text-body my-1">{education.degree}</div>
+          <div className="italic text-body my-1">{education.years}</div>
           <div className="text-[0.85rem] text-muted mt-2 leading-relaxed">
             {education.activities}
           </div>

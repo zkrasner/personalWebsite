@@ -27,7 +27,7 @@ export interface Interest {
 export const summary = {
   name: { first: "Zachary", last: "Krasner" },
   tagline: "Engineering leader. Builder of platforms. Reader of sci-fi.",
-  bio: "Software engineer and technical leader with 10 years of experience architecting data platforms and backend systems. Built and scaled engineering teams, modernized legacy infrastructure, and shipped products 0 to 1 that drive measurable business outcomes.",
+  bio: "Software engineer and technical leader with 10 years of experience architecting data platforms and backend systems. Built and scaled engineering teams, modernized legacy infrastructure, and shipped products 0 to 1 that drive measurable business outcomes. Deep expertise in Python, SQL, GCP, and data pipeline design. Driven by curiosity and a bias for ownership, most at home in environments where engineering and product strategy intersect.",
   location: "Boston, MA",
   links: {
     linkedin: "https://linkedin.com/in/zkrasner",
@@ -39,8 +39,9 @@ export const jobs: Job[] = [
   {
     company: "Grassroots Analytics",
     companyKey: "grassroots",
-    description: "Data analytics platform for political campaigns and nonprofits",
-    overallDates: "Sep 2020 — Present",
+    description:
+      "Data analytics platform for political campaigns and nonprofits",
+    overallDates: "Jan 2021 — Present",
     roles: [
       {
         title: "Chief Technology Officer",
@@ -49,13 +50,29 @@ export const jobs: Job[] = [
         bullets: [
           "Grew engineering team from 0 to 12 and drove company revenue from $5M to $30M+ ARR by removing the technical bottlenecks constraining sales and delivery capacity.",
           "Architected and led development of a full-stack donor data platform spanning multiple systems and 40M+ donor profiles:",
-          "Established engineering excellence: CI/CD pipelines, AI-assisted development tooling, SOC 2 Type 1 certification.",
+          "Established a culture of engineering excellence by implementing CI/CD pipelines, rolling out AI-assisted development tooling across engineers and analysts, and achieving SOC 2 Type 1 certification.",
         ],
         products: [
-          { name: "Moosehead", description: "Internal analyst querying — data retrieval from 15+ min to under 30 seconds." },
-          { name: "Algo", description: "Regression analysis across hundreds of millions of donation records." },
-          { name: "Click Collective", description: "Ingests billions of email events to predict future donor interactions." },
-          { name: "Apical", description: "SaaS platform unifying fragmented campaign and nonprofit data toolsets." },
+          {
+            name: "Moosehead",
+            description:
+              "Internal analyst querying platform reducing data retrieval from 15+ minutes to under 30 seconds, with improved security, repeatability, and result quality.",
+          },
+          {
+            name: "Algo",
+            description:
+              "Processes hundreds of millions of donation records applying regression analysis to generate hundreds of unique datapoints and categorizations per donor profile.",
+          },
+          {
+            name: "Click Collective",
+            description:
+              "Ingests and preprocesses billions of email exhaust events across hundreds of clients to predict future donor interactions.",
+          },
+          {
+            name: "Apical",
+            description:
+              "SaaS platform unifying fragmented campaign and nonprofit data toolsets and overlaying proprietary analytics.",
+          },
         ],
       },
       {
@@ -71,7 +88,7 @@ export const jobs: Job[] = [
   {
     company: "Bridgewater Associates",
     companyKey: "bridgewater",
-    description: "World's largest hedge fund · $150B+ AUM",
+    description: "World's largest hedge fund · $150B+ AUM during my tenure",
     overallDates: "Sep 2016 — Aug 2022",
     roles: [
       {
@@ -81,7 +98,7 @@ export const jobs: Job[] = [
         bullets: [
           "Partnered with quantitative analysts to implement 10-year tactical and long-term assumption sets into the portfolio construction platform, translating complex Excel-based financial models into production Scala code.",
           "Led extraction of a monolithic permission system into a unified Kafka/Flink microservice, consolidating access control across multiple related client-facing platforms.",
-          "Built and maintained a real-time portfolio construction platform used by client managers globally, instrumental in securing billions in AUM from institutional investors.",
+          "Built and maintained a real-time portfolio construction platform used by client managers globally, instrumental in securing billions in AUM from institutional investors including endowments, pensions, and sovereign wealth funds.",
         ],
       },
       {
@@ -107,12 +124,12 @@ export const jobs: Job[] = [
     company: "Epic Systems",
     companyKey: "epic",
     description: "Largest electronic health records platform nationwide",
-    overallDates: "May — Aug 2015",
+    overallDates: "May 2015 — Aug 2015",
     roles: [
       {
         title: "Software Development Intern",
         key: "intern",
-        dates: "May — Aug 2015",
+        dates: "May 2015 — Aug 2015",
         bullets: [
           "Built a thin-client visualization tool for tracking annual flu rates and variants across a user's hospital and surrounding facilities, implementing custom SVG charts from scratch.",
         ],
@@ -123,21 +140,61 @@ export const jobs: Job[] = [
 
 export const education = {
   school: "University of Pennsylvania",
-  degree: "B.S. in Engineering, Computer and Information Sciences",
+  degree: "B.S. in Engineering · Computer and Information Sciences",
   years: "2012–2016",
-  activities: "Theta Tau Engineering Fraternity, Kappa Sigma Fraternity, American Institute of Chemical Engineers, Engineering Without Borders",
+  activities:
+    "Theta Tau Engineering Fraternity, Kappa Sigma Fraternity, American Institute of Chemical Engineers, Engineering Without Borders",
 };
 
 export const skillGroups: SkillGroup[] = [
-  { label: "Languages & Frameworks", skills: ["Python", "Django", "FastAPI", "SQL", "Scala", "JavaScript", "TypeScript", "React", "Next.js", "Vue"] },
-  { label: "Infrastructure & Cloud", skills: ["GCP", "AWS", "Airflow", "Terraform", "Jenkins", "Docker"] },
-  { label: "Data & Databases", skills: ["PostgreSQL", "ETL", "Data Pipelines", "Geospatial"] },
-  { label: "Leadership", skills: ["Team Building", "Technical Strategy", "0-to-1 Engineering"] },
+  {
+    label: "Languages & Frameworks",
+    skills: [
+      "Python",
+      "Django",
+      "FastAPI",
+      "SQL",
+      "Scala",
+      "JavaScript",
+      "TypeScript",
+      "React",
+      "Next.js",
+      "Vue",
+    ],
+  },
+  {
+    label: "Infrastructure & Cloud",
+    skills: ["GCP", "AWS", "Airflow", "Terraform", "Jenkins", "Docker"],
+  },
+  {
+    label: "Data & Databases",
+    skills: ["PostgreSQL", "ETL", "Data Pipelines", "Geospatial"],
+  },
+  {
+    label: "Leadership",
+    skills: ["Team Building", "Technical Strategy", "0-to-1 Engineering"],
+  },
 ];
 
 export const interests: Interest[] = [
-  { title: "Fatherhood", description: "Navigating the chaos and joy of first-time parenthood with my son Graham, born in 2025." },
-  { title: "Travel", description: "Road tripped around the US for a year, seeing 36 states and 16 national parks." },
-  { title: "Hiking", description: "Grew up in the mountains of Vermont and always looking for new mountains to climb." },
-  { title: "Reading", description: "Lifelong sci-fi and fantasy reader. Dune, Foundation, Hyperion, Red Rising, The Cosmere, Dungeon Crawler Carl." },
+  {
+    title: "Fatherhood",
+    description:
+      "Navigating the chaos and joy of first-time parenthood with my son Graham, born in 2025.",
+  },
+  {
+    title: "Travel",
+    description:
+      "Road tripped around the US for a year, seeing 36 states and 16 national parks.",
+  },
+  {
+    title: "Hiking",
+    description:
+      "Grew up in the mountains of Vermont and always looking for new mountains to climb.",
+  },
+  {
+    title: "Reading",
+    description:
+      "Lifelong sci-fi and fantasy reader. Dune, Foundation, Hyperion, Red Rising, The Cosmere, Dungeon Crawler Carl.",
+  },
 ];
