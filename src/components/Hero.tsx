@@ -42,7 +42,7 @@ export default function Hero() {
       </div>
 
       <div className="relative fade-in max-md:order-first max-md:max-w-[250px]">
-        <div className="relative w-full aspect-[3/4] overflow-hidden border-3 border-ink z-2">
+        <div className="relative w-full aspect-[3/4] overflow-hidden border-3 border-ink rounded-[10px] z-2">
           <Image
             src="/photo.jpeg"
             alt="Zachary Krasner"
@@ -51,7 +51,7 @@ export default function Hero() {
             priority
           />
         </div>
-        <div className="absolute -bottom-3 -right-3 w-full h-full border-3 border-accent z-1" />
+        <div className="absolute -bottom-3 -right-3 w-full h-full border-3 border-accent rounded-[10px] z-1" />
       </div>
     </section>
   );

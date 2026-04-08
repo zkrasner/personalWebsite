@@ -20,7 +20,7 @@ export default function Education() {
             {education.activities.map((activity) => (
               <li
                 key={activity}
-                className="pl-4 relative text-[0.85rem] text-muted leading-relaxed before:content-[''] before:absolute before:left-0 before:top-[0.55em] before:w-1.5 before:h-1.5 before:bg-accent"
+                className="pl-4 relative text-[0.85rem] text-muted leading-relaxed before:content-[''] before:absolute before:left-0 before:top-[0.55em] before:w-1.5 before:h-1.5 before:rounded-sm before:bg-accent"
               >
                 {activity}
               </li>
@@ -43,7 +43,7 @@ export default function Education() {
                 {group.skills.map((skill) => (
                   <span
                     key={skill}
-                    className="px-2.5 py-1 bg-warm rounded-md text-[0.82rem] font-medium text-ink transition-all duration-200 ease-in-out border-l-4 border-l-transparent hover:border-l-accent hover:rounded-[10px] hover:-translate-y-[3px] hover:shadow-[0_8px_24px_rgba(0,0,0,0.06)]"
+                    className="px-2.5 py-1 bg-warm rounded-[10px] text-[0.82rem] font-medium text-ink transition-all duration-200 ease-in-out border-l-4 border-l-transparent hover:border-l-accent hover:-translate-y-[3px] hover:shadow-[0_8px_24px_rgba(0,0,0,0.06)]"
                   >
                     {skill}
                   </span>

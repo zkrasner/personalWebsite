@@ -18,7 +18,7 @@ function RoleContent({ role }: { role: Role }) {
         {bulletsBefore.map((bullet, i) => (
           <li
             key={i}
-            className="pl-5 relative mb-3 text-[0.93rem] leading-[1.7] text-body before:content-[''] before:absolute before:left-0 before:top-[0.6em] before:w-1.5 before:h-1.5 before:bg-accent"
+            className="pl-5 relative mb-3 text-[0.93rem] leading-[1.7] text-body before:content-[''] before:absolute before:left-0 before:top-[0.6em] before:w-1.5 before:h-1.5 before:rounded-sm before:bg-accent"
           >
             {bullet}
           </li>
@@ -30,7 +30,7 @@ function RoleContent({ role }: { role: Role }) {
           {role.products.map((product) => (
             <div
               key={product.name}
-              className="bg-warm rounded-lg px-3.5 py-2.5 text-[0.82rem] leading-[1.45] text-body"
+              className="bg-warm rounded-[10px] px-3.5 py-2.5 text-[0.82rem] leading-[1.45] text-body"
             >
               <strong className="block text-ink font-bold text-[0.8rem]">
                 {product.name}
@@ -43,7 +43,7 @@ function RoleContent({ role }: { role: Role }) {
 
       {bulletAfter && (
         <ul className="list-none p-0 mt-3">
-          <li className="pl-5 relative mb-3 text-[0.93rem] leading-[1.7] text-body before:content-[''] before:absolute before:left-0 before:top-[0.6em] before:w-1.5 before:h-1.5 before:bg-accent">
+          <li className="pl-5 relative mb-3 text-[0.93rem] leading-[1.7] text-body before:content-[''] before:absolute before:left-0 before:top-[0.6em] before:w-1.5 before:h-1.5 before:rounded-sm before:bg-accent">
             {bulletAfter}
           </li>
         </ul>
@@ -70,16 +70,16 @@ function TimelineItem({ job }: { job: Job }) {
           <button
             key={role.key}
             onClick={() => setActiveRole(role.key)}
-            className={`text-[0.78rem] font-semibold px-3.5 py-1.5 rounded-full border-[1.5px] cursor-pointer transition-all duration-250 tracking-[0.02em] ${
+            className={`text-[0.78rem] font-semibold px-3.5 py-1.5 rounded-[10px] border-[1.5px] border-l-4 cursor-pointer transition-all duration-250 tracking-[0.02em] ${
               activeRole === role.key
-                ? "bg-accent border-accent text-white"
-                : "border-rule bg-transparent text-muted hover:border-accent hover:text-accent"
+                ? "bg-warm border-rule border-l-accent text-ink"
+                : "border-rule border-l-rule bg-transparent text-muted hover:border-l-accent hover:text-accent"
             }`}
           >
             {role.title}
             <span
               className={`block font-normal text-[0.68rem] mt-0.5 ${
-                activeRole === role.key ? "opacity-85" : "opacity-70"
+                activeRole === role.key ? "opacity-70" : "opacity-70"
               }`}
             >
               {role.dates}
