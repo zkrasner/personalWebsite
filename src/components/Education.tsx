@@ -8,9 +8,7 @@ export default function Education() {
       className="max-w-[960px] mx-auto px-8 py-16 grid grid-cols-2 gap-12 max-md:grid-cols-1 max-md:gap-8"
     >
       <div className="fade-in">
-        <h3 className="font-heading text-[0.85rem] font-bold tracking-[0.15em] uppercase text-accent mb-6 pb-3 border-b-2 border-ink">
-          Education
-        </h3>
+        <h3 className="section-subheader">Education</h3>
         <div>
           <div className="font-heading font-bold text-[1.2rem]">
             {education.school}
@@ -22,9 +20,7 @@ export default function Education() {
       </div>
 
       <div className="fade-in">
-        <h3 className="font-heading text-[0.85rem] font-bold tracking-[0.15em] uppercase text-accent mb-6 pb-3 border-b-2 border-ink">
-          Skills
-        </h3>
+        <h3 className="section-subheader">Skills</h3>
         <div className="space-y-4">
           {skillGroups.map((group) => (
             <div key={group.label}>
@@ -35,7 +31,7 @@ export default function Education() {
                 {group.skills.map((skill) => (
                   <span
                     key={skill}
-                    className="px-2.5 py-1 bg-warm rounded-[10px] text-[0.82rem] font-medium text-ink transition-all duration-200 ease-in-out border-l-4 border-l-transparent hover:border-l-accent hover:-translate-y-[3px] hover:shadow-[0_8px_24px_rgba(0,0,0,0.06)]"
+                    className="px-2.5 py-1 bg-warm rounded-card text-[0.82rem] font-medium text-ink border-l-4 border-l-transparent hover:border-l-accent card-hover"
                   >
                     {skill}
                   </span>

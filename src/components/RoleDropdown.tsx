@@ -40,7 +40,7 @@ export default function RoleDropdown({
         onClick={() => setOpen(!open)}
         aria-expanded={open}
         aria-haspopup="listbox"
-        className="w-full text-left px-3.5 pr-10 py-2 rounded-[10px] border-[1.5px] border-rule border-l-4 border-l-accent bg-warm cursor-pointer relative transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
+        className="w-full text-left px-3.5 pr-10 py-2 rounded-card border-[1.5px] border-rule border-l-4 border-l-accent bg-warm cursor-pointer relative transition-all duration-200 focus-ring"
       >
         <span className="block text-[0.78rem] font-semibold text-ink">
           {active.title}
@@ -57,7 +57,7 @@ export default function RoleDropdown({
       {open && (
         <div
           role="listbox"
-          className="absolute top-[calc(100%+4px)] left-0 right-0 bg-paper border-[1.5px] border-rule rounded-[10px] overflow-hidden z-10 shadow-[0_8px_24px_rgba(0,0,0,0.08)]"
+          className="absolute top-[calc(100%+4px)] left-0 right-0 bg-paper border-[1.5px] border-rule rounded-card overflow-hidden z-10 shadow-[0_8px_24px_rgba(0,0,0,0.08)]"
         >
           {roles.map((role) => (
             <div

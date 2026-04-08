@@ -18,7 +18,7 @@ export default function RoleContent({ role }: { role: Role }) {
           {role.products.map((product) => (
             <div
               key={product.name}
-              className="bg-warm rounded-[10px] px-3.5 py-2.5 text-[0.82rem] leading-[1.45] text-body"
+              className="bg-warm rounded-card px-3.5 py-2.5 text-[0.82rem] leading-[1.45] text-body"
             >
               <strong className="block text-ink font-bold text-[0.8rem]">
                 {product.name}

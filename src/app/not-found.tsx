@@ -12,7 +12,7 @@ export default function NotFound() {
         </p>
         <Link
           href="/"
-          className="inline-block px-6 py-3 bg-warm rounded-[10px] border-[1.5px] border-rule border-l-4 border-l-accent text-ink text-[0.85rem] font-semibold no-underline transition-all duration-200 hover:-translate-y-[2px] hover:shadow-[0_8px_24px_rgba(0,0,0,0.06)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
+          className="inline-block px-6 py-3 bg-warm rounded-card border-[1.5px] border-rule border-l-4 border-l-accent text-ink text-[0.85rem] font-semibold no-underline card-hover focus-ring"
         >
           Back to home
         </Link>

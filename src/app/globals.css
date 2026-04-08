@@ -12,6 +12,8 @@
 
   --font-heading: "Playfair Display", serif;
   --font-body: "Source Sans 3", Georgia, serif;
+
+  --radius-card: 10px;
 }
 
 html {
@@ -28,7 +30,9 @@ body {
 .fade-in {
   opacity: 0;
   transform: translateY(20px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s ease;
 }
 
 .fade-in.visible {
@@ -38,6 +42,45 @@ body {
 
 /* Timeline pulse animation */
 @keyframes pulse {
-  0%, 100% { box-shadow: 0 0 0 2px var(--color-accent); }
-  50% { box-shadow: 0 0 0 6px rgba(192, 57, 43, 0.2); }
+  0%,
+  100% {
+    box-shadow: 0 0 0 2px var(--color-accent);
+  }
+  50% {
+    box-shadow: 0 0 0 6px rgba(192, 57, 43, 0.2);
+  }
+}
+
+/* Extracted utilities */
+.timeline-dot {
+  @apply relative mb-12;
+  &::before {
+    content: "";
+    @apply absolute -left-10 top-2 w-5 h-5 bg-accent rounded-full border-3 border-paper z-2;
+    box-shadow: 0 0 0 2px var(--color-accent);
+  }
+  &:first-child::before {
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @media (max-width: 768px) {
+    &::before {
+      left: -1.5rem;
+    }
+  }
+}
+
+.section-subheader {
+  @apply font-heading text-[0.85rem] font-bold tracking-[0.15em] uppercase text-accent mb-6 pb-3 border-b-2 border-ink;
+}
+
+.card-hover {
+  @apply transition-all duration-200;
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  }
+}
+
+.focus-ring {
+  @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-paper;
 }
