@@ -25,7 +25,7 @@ export interface Interest {
 }
 
 export const summary = {
-  name: { first: "Zachary", last: "Krasner" },
+  name: { first: "Zach", last: "Krasner" },
   tagline: "Engineering leader. Builder of platforms. Reader of sci-fi.",
   bio: "Software engineer and technical leader with 10 years of experience architecting data platforms and backend systems. Built and scaled engineering teams, modernized legacy infrastructure, and shipped products 0 to 1 that drive measurable business outcomes. Deep expertise in Python, SQL, GCP, and data pipeline design. Driven by curiosity and a bias for ownership, most at home in environments where engineering and product strategy intersect.",
   location: "Boston, MA",

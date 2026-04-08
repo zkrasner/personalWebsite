@@ -23,7 +23,7 @@ export default function Navbar() {
     <nav className="fixed top-0 w-full z-100 bg-paper border-b border-rule backdrop-blur-sm">
       <div className="max-w-[1100px] mx-auto px-8 py-4 flex justify-between items-center">
         <div className="font-heading font-black text-[1.1rem] tracking-[0.08em] uppercase">
-          Zachary <span className="text-accent">K.</span>
+          Z<span className="text-accent">K.</span>
         </div>
 
         {/* Desktop links */}
