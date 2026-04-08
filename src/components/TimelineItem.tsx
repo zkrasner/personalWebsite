@@ -10,15 +10,35 @@ export default function TimelineItem({ job }: { job: Job }) {
 
   return (
     <div className="timeline-dot">
-      <div className="flex justify-between items-baseline flex-wrap gap-2">
-        <h3 className="font-heading text-[1.4rem] font-bold">{job.company}</h3>
-        <span className="text-[0.8rem] text-muted font-medium">
-          {job.location}
-        </span>
+      {/* Desktop: two rows (name/location, desc/dates) */}
+      <div className="max-md:hidden">
+        <div className="flex justify-between items-baseline gap-2">
+          <h3 className="font-heading text-[1.4rem] font-bold">
+            {job.company}
+          </h3>
+          <span className="text-[0.8rem] text-muted font-medium">
+            {job.location}
+          </span>
+        </div>
+        <div className="flex justify-between items-baseline gap-2">
+          <p className="text-[0.82rem] text-muted italic">{job.description}</p>
+          <span className="text-[0.75rem] text-muted">{job.overallDates}</span>
+        </div>
       </div>
-      <div className="flex justify-between items-baseline flex-wrap gap-2">
+      {/* Mobile: name left, location/dates stacked right, desc below */}
+      <div className="hidden max-md:block">
+        <div className="flex justify-between items-start gap-2">
+          <h3 className="font-heading text-[1.2rem] font-bold">
+            {job.company}
+          </h3>
+          <div className="text-right shrink-0">
+            <div className="text-[0.7rem] text-muted font-medium">
+              {job.location}
+            </div>
+            <div className="text-[0.68rem] text-muted">{job.overallDates}</div>
+          </div>
+        </div>
         <p className="text-[0.82rem] text-muted italic">{job.description}</p>
-        <span className="text-[0.75rem] text-muted">{job.overallDates}</span>
       </div>
       <div className="mb-3" />
 
