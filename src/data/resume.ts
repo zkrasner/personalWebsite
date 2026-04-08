@@ -10,6 +10,7 @@ export interface Job {
   company: string;
   companyKey: string;
   description: string;
+  location: string;
   overallDates: string;
   roles: Role[];
 }
@@ -41,6 +42,7 @@ export const jobs: Job[] = [
     companyKey: "grassroots",
     description:
       "Data analytics platform for political campaigns and nonprofits",
+    location: "Washington, DC",
     overallDates: "Jan 2021 — Present",
     roles: [
       {
@@ -89,6 +91,7 @@ export const jobs: Job[] = [
     company: "Bridgewater Associates",
     companyKey: "bridgewater",
     description: "World's largest hedge fund · $150B+ AUM during my tenure",
+    location: "New York, NY",
     overallDates: "Sep 2016 — Aug 2022",
     roles: [
       {
@@ -124,6 +127,7 @@ export const jobs: Job[] = [
     company: "Epic Systems",
     companyKey: "epic",
     description: "Largest electronic health records platform nationwide",
+    location: "Madison, WI",
     overallDates: "May 2015 — Aug 2015",
     roles: [
       {

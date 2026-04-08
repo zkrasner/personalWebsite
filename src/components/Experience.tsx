@@ -128,10 +128,14 @@ function TimelineItem({ job }: { job: Job }) {
       <div className="flex justify-between items-baseline flex-wrap gap-2">
         <h3 className="font-heading text-[1.4rem] font-bold">{job.company}</h3>
         <span className="text-[0.8rem] text-muted font-medium">
-          {job.overallDates}
+          {job.location}
         </span>
       </div>
-      <p className="text-[0.82rem] text-muted italic mb-3">{job.description}</p>
+      <div className="flex justify-between items-baseline flex-wrap gap-2">
+        <p className="text-[0.82rem] text-muted italic">{job.description}</p>
+        <span className="text-[0.75rem] text-muted">{job.overallDates}</span>
+      </div>
+      <div className="mb-3" />
 
       {/* Desktop tabs */}
       <div className="flex gap-2 flex-wrap mb-5 max-md:hidden">
