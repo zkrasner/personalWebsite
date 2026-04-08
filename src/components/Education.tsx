@@ -4,7 +4,7 @@ export default function Education() {
   return (
     <div
       id="education"
-      className="max-w-[960px] mx-auto px-8 pb-16 grid grid-cols-2 gap-12 max-md:grid-cols-1"
+      className="max-w-[960px] mx-auto px-8 py-16 grid grid-cols-2 gap-12 max-md:grid-cols-1"
     >
       <div className="fade-in">
         <h3 className="font-heading text-[0.85rem] font-bold tracking-[0.15em] uppercase text-accent mb-6 pb-3 border-b-2 border-ink">
@@ -16,9 +16,16 @@ export default function Education() {
           </div>
           <div className="italic text-body my-1">{education.degree}</div>
           <div className="italic text-body my-1">{education.years}</div>
-          <div className="text-[0.85rem] text-muted mt-2 leading-relaxed">
-            {education.activities}
-          </div>
+          <ul className="mt-3 list-none p-0 space-y-1">
+            {education.activities.map((activity) => (
+              <li
+                key={activity}
+                className="pl-4 relative text-[0.85rem] text-muted leading-relaxed before:content-[''] before:absolute before:left-0 before:top-[0.55em] before:w-1.5 before:h-1.5 before:bg-accent"
+              >
+                {activity}
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
 

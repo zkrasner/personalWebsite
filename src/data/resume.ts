@@ -142,8 +142,12 @@ export const education = {
   school: "University of Pennsylvania",
   degree: "B.S. in Engineering · Computer and Information Sciences",
   years: "2012–2016",
-  activities:
-    "Theta Tau Engineering Fraternity, Kappa Sigma Fraternity, American Institute of Chemical Engineers, Engineering Without Borders",
+  activities: [
+    "Theta Tau Engineering Fraternity",
+    "Kappa Sigma Fraternity · Philanthropy Chair",
+    "American Institute of Chemical Engineers",
+    "Engineering Without Borders",
+  ],
 };
 
 export const skillGroups: SkillGroup[] = [
@@ -157,8 +161,8 @@ export const skillGroups: SkillGroup[] = [
       "Scala",
       "JavaScript",
       "TypeScript",
-      "React",
       "Next.js",
+      "React",
       "Vue",
     ],
   },
@@ -168,7 +172,7 @@ export const skillGroups: SkillGroup[] = [
   },
   {
     label: "Data & Databases",
-    skills: ["PostgreSQL", "ETL", "Data Pipelines", "Geospatial"],
+    skills: ["PostgreSQL", "BigQuery", "ETL", "Data Pipelines"],
   },
   {
     label: "Leadership",

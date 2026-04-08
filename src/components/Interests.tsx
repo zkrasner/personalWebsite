@@ -2,7 +2,10 @@ import { interests } from "@/data/resume";
 
 export default function Interests() {
   return (
-    <section id="interests" className="max-w-[960px] mx-auto px-8 pb-20 fade-in">
+    <section
+      id="interests"
+      className="max-w-[960px] mx-auto px-8 py-16 fade-in"
+    >
       <div className="font-heading text-[0.85rem] font-bold tracking-[0.15em] uppercase text-accent mb-12 flex items-center gap-4 after:content-[''] after:flex-1 after:h-px after:bg-rule">
         Beyond the Code
       </div>
