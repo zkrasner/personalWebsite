@@ -146,7 +146,7 @@ export const education = {
     "Theta Tau Engineering Fraternity",
     "Kappa Sigma Fraternity · Philanthropy Chair",
     "American Institute of Chemical Engineers",
-    "Engineering Without Borders",
+    "Engineers Without Borders",
   ],
 };
 
