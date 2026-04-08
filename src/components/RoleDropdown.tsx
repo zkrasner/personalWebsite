@@ -31,7 +31,7 @@ export default function RoleDropdown({
     <div ref={ref} className="relative w-full mb-5 hidden max-md:block">
       <button
         onClick={() => setOpen(!open)}
-        className="w-full text-left px-3.5 pr-10 py-2 rounded-[10px] border-[1.5px] border-rule border-l-4 border-l-accent bg-warm cursor-pointer relative transition-all duration-200"
+        className="w-full text-left px-3.5 pr-10 py-2 rounded-[10px] border-[1.5px] border-rule border-l-4 border-l-accent bg-warm cursor-pointer relative transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
       >
         <span className="block text-[0.78rem] font-semibold text-ink">
           {active.title}

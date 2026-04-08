@@ -28,7 +28,7 @@ export default function TimelineItem({ job }: { job: Job }) {
           <button
             key={role.key}
             onClick={() => setActiveRole(role.key)}
-            className={`text-[0.78rem] font-semibold px-3.5 py-1.5 rounded-[10px] border-[1.5px] border-l-4 cursor-pointer transition-all duration-250 tracking-[0.02em] ${
+            className={`text-[0.78rem] font-semibold px-3.5 py-1.5 rounded-[10px] border-[1.5px] border-l-4 cursor-pointer transition-all duration-200 tracking-[0.02em] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-paper ${
               activeRole === role.key
                 ? "bg-warm border-rule border-l-accent text-ink"
                 : "border-rule border-l-rule bg-transparent text-muted hover:border-l-accent hover:text-accent"

@@ -32,7 +32,7 @@ export default function Navbar() {
             <li key={link.href}>
               <a
                 href={link.href}
-                className="no-underline text-muted text-[0.85rem] font-medium tracking-[0.06em] uppercase transition-colors duration-300 hover:text-accent"
+                className="no-underline text-muted text-[0.85rem] font-medium tracking-[0.06em] uppercase transition-colors duration-300 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-paper rounded-sm"
               >
                 {link.label}
               </a>
@@ -42,7 +42,7 @@ export default function Navbar() {
 
         {/* Hamburger button */}
         <button
-          className="hidden max-md:flex flex-col justify-between w-[26px] h-[20px] bg-transparent border-none cursor-pointer p-0"
+          className="hidden max-md:flex flex-col justify-between w-[26px] h-[20px] bg-transparent border-none cursor-pointer p-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-paper rounded-sm"
           onClick={(e) => {
             e.stopPropagation();
             setOpen(!open);
@@ -74,7 +74,7 @@ export default function Navbar() {
               <a
                 href={link.href}
                 onClick={() => setOpen(false)}
-                className="block px-8 py-3.5 no-underline text-muted text-[0.85rem] font-semibold tracking-[0.1em] uppercase transition-colors duration-200 hover:text-accent hover:bg-warm"
+                className="block px-8 py-3.5 no-underline text-muted text-[0.85rem] font-semibold tracking-[0.1em] uppercase transition-colors duration-200 hover:text-accent hover:bg-warm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-inset"
               >
                 {link.label}
               </a>

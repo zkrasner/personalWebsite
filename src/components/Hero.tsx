@@ -24,7 +24,7 @@ export default function Hero() {
               href={summary.links.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-ink transition-colors duration-300 hover:text-accent"
+              className="text-ink transition-colors duration-300 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-paper rounded-sm"
               aria-label="LinkedIn"
             >
               <svg
@@ -40,7 +40,7 @@ export default function Hero() {
               href={summary.links.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-ink transition-colors duration-300 hover:text-accent"
+              className="text-ink transition-colors duration-300 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-paper rounded-sm"
               aria-label="GitHub"
             >
               <svg
