@@ -176,7 +176,7 @@ export default function Experience() {
         Experience
       </div>
 
-      <div className="relative pl-10 max-md:pl-6 before:content-[''] before:absolute before:left-[calc(6px-1px+3px)] before:top-7 before:bottom-0 before:w-0.5 before:bg-rule max-md:before:left-[calc(4px-1px+3px)]">
+      <div className="relative pl-10 max-md:pl-6 before:content-[''] before:absolute before:left-[calc(6px-1px+3px)] before:top-7 before:bottom-0 before:w-0.5 before:bg-rule max-md:before:left-[calc(4px-1px+6px)]">
         {jobs.map((job) => (
           <TimelineItem key={job.companyKey} job={job} />
         ))}
