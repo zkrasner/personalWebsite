@@ -1,4 +1,5 @@
 import { education, skillGroups } from "@/data/resume";
+import BulletList from "@/components/BulletList";
 
 export default function Education() {
   return (
@@ -16,16 +17,7 @@ export default function Education() {
           </div>
           <div className="italic text-body my-1">{education.degree}</div>
           <div className="italic text-body my-1">{education.years}</div>
-          <ul className="mt-3 list-none p-0 space-y-1">
-            {education.activities.map((activity) => (
-              <li
-                key={activity}
-                className="pl-4 relative text-[0.85rem] text-muted leading-relaxed before:content-[''] before:absolute before:left-0 before:top-[0.55em] before:w-1.5 before:h-1.5 before:rounded-sm before:bg-accent"
-              >
-                {activity}
-              </li>
-            ))}
-          </ul>
+          <BulletList items={education.activities} className="mt-3" />
         </div>
       </div>
 
