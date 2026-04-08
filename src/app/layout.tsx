@@ -30,10 +30,8 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "https://zkrasner.com/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "Zach Krasner — Engineering leader, builder of platforms",
+        url: "https://zkrasner.com/photo.jpeg",
+        alt: "Zach Krasner",
       },
     ],
   },
@@ -42,7 +40,7 @@ export const metadata: Metadata = {
     title: "Zach Krasner",
     description:
       "Software engineer and technical leader. CTO at Grassroots Analytics.",
-    images: ["https://zkrasner.com/og-image.png"],
+    images: ["https://zkrasner.com/photo.jpeg"],
   },
 };
 
