@@ -2,7 +2,7 @@ export default function Footer() {
   return (
     <footer
       id="contact"
-      className="border-t-2 border-ink max-w-[960px] mx-auto mb-16 px-8 py-8 flex justify-between items-center"
+      className="border-t-2 border-ink max-w-[960px] mx-auto mb-16 px-8 py-8 flex justify-between items-center max-md:flex-col max-md:gap-3 max-md:text-center"
     >
       <div className="text-[0.8rem] text-muted italic">
         &copy; {new Date().getFullYear()} Zachary Krasner

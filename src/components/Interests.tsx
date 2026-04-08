@@ -9,7 +9,7 @@ export default function Interests() {
       <div className="font-heading text-[0.85rem] font-bold tracking-[0.15em] uppercase text-accent mb-12 flex items-center gap-4 after:content-[''] after:flex-1 after:h-px after:bg-rule">
         Beyond the Code
       </div>
-      <div className="grid grid-cols-4 gap-5 max-md:grid-cols-2">
+      <div className="grid grid-cols-4 gap-5 max-md:grid-cols-2 max-sm:grid-cols-1">
         {interests.map((interest) => (
           <div
             key={interest.title}

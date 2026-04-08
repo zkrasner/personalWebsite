@@ -5,10 +5,10 @@ export default function Hero() {
   return (
     <section
       id="about"
-      className="max-w-[1100px] mx-auto px-8 pt-40 pb-16 grid grid-cols-[1fr_320px] gap-16 items-center max-md:grid-cols-1 max-md:pt-28"
+      className="max-w-[1100px] mx-auto px-8 pt-40 pb-16 grid grid-cols-[1fr_320px] gap-16 items-center max-md:grid-cols-1 max-md:pt-28 max-md:gap-8"
     >
       <div className="fade-in">
-        <h1 className="font-heading font-black text-[5.5rem] leading-[0.95] tracking-tight mb-1 max-md:text-[3.5rem]">
+        <h1 className="font-heading font-black text-[5.5rem] leading-[0.95] tracking-tight mb-1 max-md:text-[3.5rem] max-sm:text-[2.5rem]">
           {summary.name.first}
           <span className="block text-accent">{summary.name.last}</span>
         </h1>
@@ -41,7 +41,7 @@ export default function Hero() {
         </div>
       </div>
 
-      <div className="relative fade-in max-md:order-first max-md:max-w-[250px]">
+      <div className="relative fade-in max-md:order-first max-md:max-w-[250px] max-sm:max-w-[200px]">
         <div className="relative w-full aspect-[3/4] overflow-hidden border-3 border-ink rounded-[10px] z-2">
           <Image
             src="/photo.jpeg"

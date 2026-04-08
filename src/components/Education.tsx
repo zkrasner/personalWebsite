@@ -4,7 +4,7 @@ export default function Education() {
   return (
     <div
       id="education"
-      className="max-w-[960px] mx-auto px-8 py-16 grid grid-cols-2 gap-12 max-md:grid-cols-1"
+      className="max-w-[960px] mx-auto px-8 py-16 grid grid-cols-2 gap-12 max-md:grid-cols-1 max-md:gap-8"
     >
       <div className="fade-in">
         <h3 className="font-heading text-[0.85rem] font-bold tracking-[0.15em] uppercase text-accent mb-6 pb-3 border-b-2 border-ink">
