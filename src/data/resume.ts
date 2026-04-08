@@ -144,8 +144,9 @@ export const jobs: Job[] = [
 
 export const education = {
   school: "University of Pennsylvania",
+  location: "Philadelphia, PA",
   degree: "B.S. in Engineering · Computer and Information Sciences",
-  years: "2012–2016",
+  years: "Aug 2012 — May 2016",
   activities: [
     "Theta Tau Engineering Fraternity",
     "Kappa Sigma Fraternity · Philanthropy Chair",

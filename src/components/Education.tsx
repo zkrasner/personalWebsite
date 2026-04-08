@@ -10,11 +10,18 @@ export default function Education() {
       <div className="fade-in">
         <h3 className="section-subheader">Education</h3>
         <div>
-          <div className="font-heading font-bold text-[1.2rem]">
-            {education.school}
+          <div className="flex justify-between items-start gap-2">
+            <div className="font-heading font-bold text-[1.2rem]">
+              {education.school}
+            </div>
+            <div className="text-right shrink-0">
+              <div className="text-[0.8rem] text-muted font-medium">
+                {education.location}
+              </div>
+              <div className="text-[0.75rem] text-muted">{education.years}</div>
+            </div>
           </div>
           <div className="italic text-body my-1">{education.degree}</div>
-          <div className="italic text-body my-1">{education.years}</div>
           <BulletList items={education.activities} className="mt-3" />
         </div>
       </div>
