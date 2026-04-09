@@ -1,16 +1,19 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
 
-  const links = [
-    { label: "About", href: "#about" },
-    { label: "Experience", href: "#experience" },
-    { label: "Education", href: "#education" },
-    { label: "Interests", href: "#interests" },
+  const sectionLinks = [
+    { label: "About", href: "/#about" },
+    { label: "Experience", href: "/#experience" },
+    { label: "Education", href: "/#education" },
+    { label: "Interests", href: "/#interests" },
   ];
+
+  const pageLinks = [{ label: "Bookshelf", href: "/bookshelf" }];
 
   useEffect(() => {
     if (!open) return;
@@ -22,13 +25,27 @@ export default function Navbar() {
   return (
     <nav className="fixed top-0 w-full z-50 bg-paper border-b border-rule backdrop-blur-sm">
       <div className="max-w-[1100px] mx-auto px-8 py-4 flex justify-between items-center">
-        <div className="font-heading font-black text-[1.1rem] tracking-[0.08em] uppercase">
+        <Link
+          href="/"
+          className="font-heading font-black text-[1.1rem] tracking-[0.08em] uppercase no-underline text-ink focus-ring rounded-sm"
+        >
           Z<span className="text-accent">K.</span>
-        </div>
+        </Link>
 
         {/* Desktop links */}
-        <ul className="flex gap-8 list-none max-md:hidden">
-          {links.map((link) => (
+        <ul className="flex gap-8 items-center list-none max-md:hidden">
+          {sectionLinks.map((link) => (
+            <li key={link.href}>
+              <a
+                href={link.href}
+                className="no-underline text-muted text-[0.85rem] font-medium tracking-[0.06em] uppercase transition-colors duration-300 hover:text-accent focus-ring rounded-sm"
+              >
+                {link.label}
+              </a>
+            </li>
+          ))}
+          <li aria-hidden="true" className="border-l border-rule h-4" />
+          {pageLinks.map((link) => (
             <li key={link.href}>
               <a
                 href={link.href}
@@ -63,14 +80,23 @@ export default function Navbar() {
 
       {/* Mobile dropdown */}
       <div
-        className={`hidden max-md:block overflow-hidden transition-all duration-300 ease-in-out ${open ? "max-h-60 opacity-100 border-t border-rule" : "max-h-0 opacity-0"}`}
+        className={`hidden max-md:block overflow-hidden transition-all duration-300 ease-in-out ${open ? "max-h-80 opacity-100 border-t border-rule" : "max-h-0 opacity-0"}`}
       >
-        <ul className="list-none py-2">
-          {links.map((link, i) => (
-            <li
-              key={link.href}
-              className={i < links.length - 1 ? "border-b border-rule" : ""}
-            >
+        <ul className="list-none">
+          {sectionLinks.map((link) => (
+            <li key={link.href} className="border-b border-rule">
+              <a
+                href={link.href}
+                onClick={() => setOpen(false)}
+                className="block px-8 py-3.5 no-underline text-muted text-[0.85rem] font-semibold tracking-[0.1em] uppercase transition-colors duration-200 hover:text-accent hover:bg-warm focus-ring"
+              >
+                {link.label}
+              </a>
+            </li>
+          ))}
+          <li aria-hidden="true" className="border-b-2 border-rule" />
+          {pageLinks.map((link) => (
+            <li key={link.href}>
               <a
                 href={link.href}
                 onClick={() => setOpen(false)}

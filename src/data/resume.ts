@@ -23,6 +23,7 @@ export interface SkillGroup {
 export interface Interest {
   title: string;
   description: string;
+  href?: string;
 }
 
 export const summary = {
@@ -205,5 +206,6 @@ export const interests: Interest[] = [
     title: "Reading",
     description:
       "Lifelong sci-fi and fantasy reader. Dune, Foundation, Hyperion, Red Rising, The Cosmere, Dungeon Crawler Carl.",
+    href: "/bookshelf",
   },
 ];

@@ -12,13 +12,15 @@ export default function Home() {
     <>
       <FadeInObserver />
       <Navbar />
-      <Hero />
-      <SectionDivider />
-      <Experience />
-      <SectionDivider />
-      <Education />
-      <SectionDivider />
-      <Interests />
+      <main id="main-content">
+        <Hero />
+        <SectionDivider />
+        <Experience />
+        <SectionDivider />
+        <Education />
+        <SectionDivider />
+        <Interests />
+      </main>
       <Footer />
     </>
   );
