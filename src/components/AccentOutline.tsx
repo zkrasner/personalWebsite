@@ -1,10 +1,12 @@
 export default function AccentOutline({
   children,
   size = "sm",
+  variant = "filled",
   className = "",
 }: {
   children: React.ReactNode;
   size?: "sm" | "md" | "lg";
+  variant?: "filled" | "outline";
   className?: string;
 }) {
   const offset = {
@@ -13,11 +15,16 @@ export default function AccentOutline({
     lg: "-bottom-3 -left-3",
   }[size];
 
+  const fill = {
+    filled: "bg-accent",
+    outline: "border-3 border-accent",
+  }[variant];
+
   return (
     <div className={`relative ${className}`}>
       {children}
       <div
-        className={`absolute ${offset} w-full h-full bg-accent rounded-card z-1`}
+        className={`absolute ${offset} w-full h-full ${fill} rounded-card z-1`}
       />
     </div>
   );

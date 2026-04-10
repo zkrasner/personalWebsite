@@ -75,6 +75,7 @@ export default function Hero() {
 
       <AccentOutline
         size="lg"
+        variant="outline"
         className="fade-in max-md:order-first max-md:max-w-[250px] max-sm:max-w-[200px]"
       >
         <div className="relative w-full aspect-[3/4] overflow-hidden border-3 border-ink rounded-card z-2 card-hover">

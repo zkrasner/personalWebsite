@@ -44,16 +44,16 @@ export default function TimelineItem({ job }: { job: Job }) {
             size="sm"
             className={
               activeRole === role.key
-                ? "opacity-100"
-                : "[&>:last-child]:opacity-0"
+                ? "[&>:last-child]:opacity-100"
+                : "[&>:last-child]:opacity-30 hover:[&>:last-child]:opacity-60"
             }
           >
             <button
               onClick={() => setActiveRole(role.key)}
-              className={`relative z-2 px-3.5 py-1.5 rounded-card border-[1.5px] cursor-pointer transition-all duration-200 tracking-[0.02em] focus-ring ${
+              className={`relative z-2 px-3.5 py-1.5 rounded-card border-[1.5px] bg-warm cursor-pointer transition-all duration-200 tracking-[0.02em] focus-ring card-hover ${
                 activeRole === role.key
-                  ? "bg-warm border-ink text-ink card-hover"
-                  : "border-rule bg-transparent text-muted hover:border-ink hover:text-ink"
+                  ? "text-ink border-ink"
+                  : "text-muted border-ink/40 hover:text-ink hover:border-ink"
               }`}
             >
               <RoleLabel title={role.title} dates={role.dates} />

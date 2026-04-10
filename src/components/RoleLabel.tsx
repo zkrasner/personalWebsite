@@ -7,8 +7,8 @@ export default function RoleLabel({
 }) {
   return (
     <>
-      <span className="block text-sm font-semibold text-ink">{title}</span>
-      <span className="block text-xs text-muted mt-0.5">{dates}</span>
+      <span className="block text-sm font-semibold">{title}</span>
+      <span className="block text-xs opacity-60 mt-0.5">{dates}</span>
     </>
   );
 }

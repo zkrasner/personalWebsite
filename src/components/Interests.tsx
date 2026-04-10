@@ -34,7 +34,11 @@ export default function Interests() {
             "relative p-6 bg-warm rounded-card border-3 border-ink card-hover";
 
           return (
-            <AccentOutline key={interest.title} size="md">
+            <AccentOutline
+              key={interest.title}
+              size="md"
+              variant={interest.href ? "filled" : "outline"}
+            >
               {interest.href ? (
                 <a
                   href={interest.href}
