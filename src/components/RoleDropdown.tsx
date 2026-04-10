@@ -2,6 +2,8 @@
 
 import { useState, useEffect, useRef, useCallback } from "react";
 import type { Role } from "@/data/resume";
+import AccentOutline from "@/components/AccentOutline";
+import RoleLabel from "@/components/RoleLabel";
 
 export default function RoleDropdown({
   roles,
@@ -36,23 +38,20 @@ export default function RoleDropdown({
 
   return (
     <div ref={ref} className="relative w-full mb-5 hidden max-md:block">
-      <button
-        onClick={() => setOpen(!open)}
-        aria-expanded={open}
-        aria-haspopup="listbox"
-        className="w-full text-left px-3.5 pr-10 py-2 rounded-card border-[1.5px] border-rule border-l-4 border-l-accent bg-warm cursor-pointer relative transition-all duration-200 focus-ring"
-      >
-        <span className="block text-[0.78rem] font-semibold text-ink">
-          {active.title}
-        </span>
-        <span className="block text-[0.68rem] text-muted mt-0.5">
-          {active.dates}
-        </span>
-        <span
-          className={`absolute right-3.5 top-1/2 -translate-y-1/2 border-l-[5px] border-l-transparent border-r-[5px] border-r-transparent border-t-[5px] border-t-muted transition-transform duration-200 ${open ? "rotate-180" : ""}`}
-          aria-hidden="true"
-        />
-      </button>
+      <AccentOutline size="sm">
+        <button
+          onClick={() => setOpen(!open)}
+          aria-expanded={open}
+          aria-haspopup="listbox"
+          className="w-full text-left px-3.5 pr-10 py-2 rounded-card border-[1.5px] border-ink bg-warm cursor-pointer relative z-2 transition-all duration-200 focus-ring"
+        >
+          <RoleLabel title={active.title} dates={active.dates} />
+          <span
+            className={`absolute right-3.5 top-1/2 -translate-y-1/2 border-l-[5px] border-l-transparent border-r-[5px] border-r-transparent border-t-[5px] border-t-muted transition-transform duration-200 ${open ? "rotate-180" : ""}`}
+            aria-hidden="true"
+          />
+        </button>
+      </AccentOutline>
 
       {open && (
         <div
@@ -80,12 +79,7 @@ export default function RoleDropdown({
                 role.key === activeRole ? "bg-accent-light" : ""
               }`}
             >
-              <span className="block text-[0.78rem] font-semibold text-ink">
-                {role.title}
-              </span>
-              <span className="block text-[0.68rem] text-muted mt-0.5">
-                {role.dates}
-              </span>
+              <RoleLabel title={role.title} dates={role.dates} />
             </div>
           ))}
         </div>

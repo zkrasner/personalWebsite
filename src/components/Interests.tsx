@@ -1,5 +1,6 @@
 import { interests } from "@/data/resume";
 import SectionHeader from "@/components/SectionHeader";
+import AccentOutline from "@/components/AccentOutline";
 
 export default function Interests() {
   return (
@@ -12,16 +13,16 @@ export default function Interests() {
         {interests.map((interest) => {
           const content = (
             <>
-              <h4 className="font-heading font-bold text-[1rem] mb-1.5">
+              <h4 className="font-heading font-bold text-md mb-1.5">
                 {interest.title}
               </h4>
-              <p className="text-[0.85rem] text-body leading-relaxed">
+              <p className="text-base text-body leading-relaxed">
                 {interest.description}
               </p>
               {interest.href && (
                 <span
                   aria-hidden="true"
-                  className="absolute bottom-3 right-4 text-accent text-[0.85rem] opacity-60 transition-opacity duration-200 group-hover:opacity-100"
+                  className="absolute bottom-3 right-4 text-accent text-base opacity-60 transition-opacity duration-200 group-hover:opacity-100"
                 >
                   &rarr;
                 </span>
@@ -32,8 +33,8 @@ export default function Interests() {
           const className =
             "relative p-6 bg-warm rounded-card border-3 border-ink card-hover";
 
-          const card = (
-            <div key={interest.title} className="relative">
+          return (
+            <AccentOutline key={interest.title} size="md">
               {interest.href ? (
                 <a
                   href={interest.href}
@@ -46,11 +47,8 @@ export default function Interests() {
                   {content}
                 </div>
               )}
-              <div className="absolute -bottom-2 -left-2 w-full h-full border-2 border-accent rounded-card z-1" />
-            </div>
+            </AccentOutline>
           );
-
-          return card;
         })}
       </div>
     </section>

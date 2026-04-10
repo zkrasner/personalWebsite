@@ -1,5 +1,6 @@
 import { summary } from "@/data/resume";
 import Image from "next/image";
+import AccentOutline from "@/components/AccentOutline";
 
 export default function Hero() {
   return (
@@ -8,14 +9,14 @@ export default function Hero() {
       className="max-w-[1100px] mx-auto px-8 pt-40 pb-16 grid grid-cols-[1fr_320px] gap-16 items-center max-md:grid-cols-1 max-md:pt-28 max-md:gap-8"
     >
       <div className="fade-in">
-        <h1 className="font-heading font-black text-[5.5rem] leading-[0.95] tracking-tight mb-1 max-md:text-[3.5rem] max-sm:text-[2.5rem]">
+        <h1 className="font-heading font-black text-4xl leading-[0.95] tracking-tight mb-1 max-md:text-3xl max-sm:text-2xl">
           {summary.name.first}
           <span className="block text-accent">{summary.name.last}</span>
         </h1>
-        <p className="font-heading italic text-[1.25rem] text-muted mb-6 pt-4 border-t-2 border-ink">
+        <p className="font-heading italic text-lg text-muted mb-6 pt-4 border-t-2 border-ink">
           {summary.tagline}
         </p>
-        <p className="text-[1.05rem] leading-[1.75] text-body max-w-[540px]">
+        <p className="text-md leading-[1.75] text-body max-w-[540px]">
           {summary.bio}
         </p>
         <div className="flex items-center justify-between mt-6 pt-4 border-t border-rule">
@@ -53,7 +54,7 @@ export default function Hero() {
               </svg>
             </a>
           </div>
-          <div className="flex items-center gap-1.5 text-[0.85rem] font-semibold text-ink tracking-[0.04em] uppercase">
+          <div className="flex items-center gap-1.5 text-base font-semibold text-ink tracking-[0.04em] uppercase">
             {summary.location}
             <svg
               width="16"
@@ -71,7 +72,10 @@ export default function Hero() {
         </div>
       </div>
 
-      <div className="relative fade-in max-md:order-first max-md:max-w-[250px] max-sm:max-w-[200px]">
+      <AccentOutline
+        size="lg"
+        className="fade-in max-md:order-first max-md:max-w-[250px] max-sm:max-w-[200px]"
+      >
         <div className="relative w-full aspect-[3/4] overflow-hidden border-3 border-ink rounded-card z-2 card-hover">
           <Image
             src="/photo.jpeg"
@@ -81,8 +85,7 @@ export default function Hero() {
             priority
           />
         </div>
-        <div className="absolute -bottom-3 -left-3 w-full h-full border-3 border-accent rounded-card z-1" />
-      </div>
+      </AccentOutline>
     </section>
   );
 }
