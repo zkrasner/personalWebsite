@@ -43,22 +43,26 @@ export default function TimelineItem({ job }: { job: Job }) {
       <div className="mb-3" />
 
       {/* Desktop tabs */}
-      <div className="flex gap-2 flex-wrap mb-5 max-md:hidden">
+      <div className="flex gap-4 flex-wrap mb-5 max-md:hidden">
         {job.roles.map((role) => (
-          <button
-            key={role.key}
-            onClick={() => setActiveRole(role.key)}
-            className={`text-[0.78rem] font-semibold px-3.5 py-1.5 rounded-card border-[1.5px] border-l-4 cursor-pointer transition-all duration-200 tracking-[0.02em] focus-ring ${
-              activeRole === role.key
-                ? "bg-warm border-rule border-l-accent text-ink"
-                : "border-rule border-l-rule bg-transparent text-muted hover:border-l-accent hover:text-accent"
-            }`}
-          >
-            {role.title}
-            <span className="block font-normal text-[0.68rem] mt-0.5 opacity-70">
-              {role.dates}
-            </span>
-          </button>
+          <div key={role.key} className="relative">
+            <button
+              onClick={() => setActiveRole(role.key)}
+              className={`relative z-2 text-[0.78rem] font-semibold px-3.5 py-1.5 rounded-card border-[1.5px] cursor-pointer transition-all duration-200 tracking-[0.02em] focus-ring ${
+                activeRole === role.key
+                  ? "bg-warm border-ink text-ink card-hover"
+                  : "border-rule bg-transparent text-muted hover:border-ink hover:text-ink"
+              }`}
+            >
+              {role.title}
+              <span className="block font-normal text-[0.68rem] mt-0.5 opacity-70">
+                {role.dates}
+              </span>
+            </button>
+            <div
+              className={`absolute -bottom-1.5 -left-1.5 w-full h-full border-[1.5px] border-accent rounded-card z-1 transition-opacity duration-200 ${activeRole === role.key ? "opacity-100" : "opacity-0"}`}
+            />
+          </div>
         ))}
       </div>
 

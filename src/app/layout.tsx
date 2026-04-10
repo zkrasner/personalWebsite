@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Playfair_Display, Source_Sans_3 } from "next/font/google";
+import FadeInObserver from "@/components/FadeInObserver";
 import "./globals.css";
 
 const playfair = Playfair_Display({
@@ -79,6 +80,7 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        <FadeInObserver />
         {children}
       </body>
     </html>

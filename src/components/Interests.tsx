@@ -30,21 +30,27 @@ export default function Interests() {
           );
 
           const className =
-            "relative p-6 bg-warm rounded-card border-l-4 border-l-accent card-hover";
+            "relative p-6 bg-warm rounded-card border-3 border-ink card-hover";
 
-          return interest.href ? (
-            <a
-              key={interest.title}
-              href={interest.href}
-              className={`${className} group no-underline text-ink`}
-            >
-              {content}
-            </a>
-          ) : (
-            <div key={interest.title} className={className}>
-              {content}
+          const card = (
+            <div key={interest.title} className="relative">
+              {interest.href ? (
+                <a
+                  href={interest.href}
+                  className={`${className} block group no-underline text-ink relative z-2`}
+                >
+                  {content}
+                </a>
+              ) : (
+                <div className={`${className} h-full relative z-2`}>
+                  {content}
+                </div>
+              )}
+              <div className="absolute -bottom-2 -left-2 w-full h-full border-2 border-accent rounded-card z-1" />
             </div>
           );
+
+          return card;
         })}
       </div>
     </section>

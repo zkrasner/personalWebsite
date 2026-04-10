@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import FadeInObserver from "@/components/FadeInObserver";
 import SectionHeader from "@/components/SectionHeader";
 import BookCard from "@/components/BookCard";
 import { books, Book } from "@/data/books";
@@ -55,7 +54,6 @@ export default function BookshelfPage() {
 
   return (
     <>
-      <FadeInObserver />
       <Navbar />
       <main
         id="main-content"

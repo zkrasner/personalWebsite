@@ -149,7 +149,7 @@ export const education = {
   degree: "B.S. in Engineering · Computer and Information Sciences",
   years: "Aug 2012 — May 2016",
   activities: [
-    "Theta Tau Engineering Fraternity",
+    "Theta Tau Engineering Fraternity · Treasurer",
     "Kappa Sigma Fraternity · Philanthropy Chair",
     "American Institute of Chemical Engineers",
     "Engineers Without Borders",

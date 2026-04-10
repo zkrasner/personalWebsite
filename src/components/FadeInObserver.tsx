@@ -4,7 +4,7 @@ import { useEffect } from "react";
 
 export default function FadeInObserver() {
   useEffect(() => {
-    const observer = new IntersectionObserver(
+    const io = new IntersectionObserver(
       (entries) => {
         entries.forEach((e) => {
           if (e.isIntersecting) e.target.classList.add("visible");
@@ -13,31 +13,49 @@ export default function FadeInObserver() {
       { threshold: 0.1 },
     );
 
-    const revealAndObserve = () => {
-      document.querySelectorAll(".fade-in:not(.visible)").forEach((el) => {
-        const rect = el.getBoundingClientRect();
-        if (
-          rect.bottom < 0 ||
-          (rect.top < window.innerHeight && rect.bottom > 0)
-        ) {
-          // Already scrolled past or currently in viewport — show immediately
-          el.classList.add("visible");
-        } else {
-          observer.observe(el);
-        }
-      });
+    const reveal = (el: Element) => {
+      const rect = el.getBoundingClientRect();
+      if (
+        rect.bottom < 0 ||
+        (rect.top < window.innerHeight && rect.bottom > 0)
+      ) {
+        el.classList.add("visible");
+      } else {
+        io.observe(el);
+      }
     };
 
-    revealAndObserve();
+    // Handle existing elements
+    document.querySelectorAll(".fade-in:not(.visible)").forEach(reveal);
 
-    // Re-run when page is restored from bfcache (back/forward navigation)
+    // Watch for new .fade-in elements (e.g. restored from router cache)
+    const mo = new MutationObserver((mutations) => {
+      for (const m of mutations) {
+        for (const node of m.addedNodes) {
+          if (!(node instanceof HTMLElement)) continue;
+          if (
+            node.classList.contains("fade-in") &&
+            !node.classList.contains("visible")
+          ) {
+            reveal(node);
+          }
+          node.querySelectorAll?.(".fade-in:not(.visible)").forEach(reveal);
+        }
+      }
+    });
+    mo.observe(document.body, { childList: true, subtree: true });
+
+    // Handle bfcache restoration
     const handlePageShow = (e: PageTransitionEvent) => {
-      if (e.persisted) revealAndObserve();
+      if (e.persisted) {
+        document.querySelectorAll(".fade-in:not(.visible)").forEach(reveal);
+      }
     };
     window.addEventListener("pageshow", handlePageShow);
 
     return () => {
-      observer.disconnect();
+      io.disconnect();
+      mo.disconnect();
       window.removeEventListener("pageshow", handlePageShow);
     };
   }, []);
