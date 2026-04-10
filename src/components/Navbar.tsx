@@ -59,7 +59,7 @@ export default function Navbar() {
 
         {/* Hamburger button */}
         <button
-          className="hidden max-md:flex flex-col justify-between w-[26px] h-[20px] bg-transparent border-none cursor-pointer p-0 focus-ring rounded-sm"
+          className="hidden max-md:flex flex-col justify-center items-center gap-[5px] w-11 h-11 bg-transparent border-none cursor-pointer p-0 focus-ring rounded-sm"
           onClick={(e) => {
             e.stopPropagation();
             setOpen(!open);
@@ -67,13 +67,13 @@ export default function Navbar() {
           aria-label="Toggle menu"
         >
           <span
-            className={`block w-full h-[2.5px] bg-ink rounded-sm transition-all duration-300 origin-center ${open ? "translate-y-[8.75px] rotate-45" : ""}`}
+            className={`block w-[26px] h-[2.5px] bg-ink rounded-sm transition-all duration-300 origin-center ${open ? "translate-y-[7.5px] rotate-45" : ""}`}
           />
           <span
-            className={`block w-full h-[2.5px] bg-ink rounded-sm transition-all duration-300 ${open ? "opacity-0" : ""}`}
+            className={`block w-[26px] h-[2.5px] bg-ink rounded-sm transition-all duration-300 ${open ? "opacity-0" : ""}`}
           />
           <span
-            className={`block w-full h-[2.5px] bg-ink rounded-sm transition-all duration-300 origin-center ${open ? "-translate-y-[8.75px] -rotate-45" : ""}`}
+            className={`block w-[26px] h-[2.5px] bg-ink rounded-sm transition-all duration-300 origin-center ${open ? "-translate-y-[7.5px] -rotate-45" : ""}`}
           />
         </button>
       </div>

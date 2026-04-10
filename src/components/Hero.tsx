@@ -64,6 +64,7 @@ export default function Hero() {
               stroke="currentColor"
               strokeWidth="2"
               className="text-accent"
+              aria-hidden="true"
             >
               <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" />
               <circle cx="12" cy="10" r="3" />
@@ -82,6 +83,7 @@ export default function Hero() {
             alt="Zachary Krasner"
             fill
             className="object-cover grayscale-[20%] contrast-[1.05]"
+            sizes="(max-width: 768px) 250px, 320px"
             priority
           />
         </div>

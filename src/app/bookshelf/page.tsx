@@ -43,6 +43,24 @@ function groupByYear(books: typeof import("@/data/books").books) {
   return years;
 }
 
+function buildJsonLd(allBooks: Book[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Bookshelf",
+    numberOfItems: allBooks.length,
+    itemListElement: allBooks.map((book, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      item: {
+        "@type": "Book",
+        name: book.title,
+        author: { "@type": "Person", name: book.author },
+      },
+    })),
+  };
+}
+
 export default function BookshelfPage() {
   const allBooks = [...books, ...(overrides as Book[])].sort((a, b) => {
     if (a.dateRead && b.dateRead) return b.dateRead.localeCompare(a.dateRead);
@@ -52,8 +70,14 @@ export default function BookshelfPage() {
   });
   const groups = groupByYear(allBooks);
 
+  const jsonLd = buildJsonLd(allBooks);
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <Navbar />
       <main
         id="main-content"
@@ -63,7 +87,7 @@ export default function BookshelfPage() {
 
         {groups.map(({ label, books }) => (
           <section key={label} className="mb-12 fade-in">
-            <h2 className="section-subheader">{label}</h2>
+            <h3 className="section-subheader">{label}</h3>
             <div className="grid grid-cols-5 gap-5 max-md:grid-cols-3 max-sm:grid-cols-2">
               {books.map((book) => (
                 <BookCard key={book.title} book={book} />

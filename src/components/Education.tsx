@@ -3,7 +3,7 @@ import BulletList from "@/components/BulletList";
 
 export default function Education() {
   return (
-    <div
+    <section
       id="education"
       className="max-w-[960px] mx-auto px-8 py-16 grid grid-cols-2 gap-12 max-md:grid-cols-1 max-md:gap-8"
     >
@@ -48,6 +48,6 @@ export default function Education() {
           ))}
         </div>
       </div>
-    </div>
+    </section>
   );
 }

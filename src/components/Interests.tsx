@@ -13,9 +13,9 @@ export default function Interests() {
         {interests.map((interest) => {
           const content = (
             <>
-              <h4 className="font-heading font-bold text-md mb-1.5">
+              <h3 className="font-heading font-bold text-md mb-1.5">
                 {interest.title}
-              </h4>
+              </h3>
               <p className="text-base text-body leading-relaxed">
                 {interest.description}
               </p>
