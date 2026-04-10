@@ -27,7 +27,7 @@ export default function Navbar() {
       <div className="max-w-[1100px] mx-auto px-8 py-4 flex justify-between items-center">
         <Link
           href="/"
-          className="font-heading font-black text-[1.1rem] tracking-[0.08em] uppercase no-underline text-ink focus-ring rounded-sm"
+          className="font-heading font-black text-lg tracking-[0.08em] uppercase no-underline text-ink focus-ring rounded-sm"
         >
           Z<span className="text-accent">K.</span>
         </Link>
@@ -38,7 +38,7 @@ export default function Navbar() {
             <li key={link.href}>
               <a
                 href={link.href}
-                className="no-underline text-muted text-[0.85rem] font-medium tracking-[0.06em] uppercase transition-colors duration-300 hover:text-accent focus-ring rounded-sm"
+                className="no-underline text-muted text-base font-medium tracking-[0.06em] uppercase transition-colors duration-300 hover:text-accent focus-ring rounded-sm"
               >
                 {link.label}
               </a>
@@ -49,7 +49,7 @@ export default function Navbar() {
             <li key={link.href}>
               <a
                 href={link.href}
-                className="no-underline text-muted text-[0.85rem] font-medium tracking-[0.06em] uppercase transition-colors duration-300 hover:text-accent focus-ring rounded-sm"
+                className="no-underline text-muted text-base font-medium tracking-[0.06em] uppercase transition-colors duration-300 hover:text-accent focus-ring rounded-sm"
               >
                 {link.label}
               </a>
@@ -88,7 +88,7 @@ export default function Navbar() {
               <a
                 href={link.href}
                 onClick={() => setOpen(false)}
-                className="block px-8 py-3.5 no-underline text-muted text-[0.85rem] font-semibold tracking-[0.1em] uppercase transition-colors duration-200 hover:text-accent hover:bg-warm focus-ring"
+                className="block px-8 py-3.5 no-underline text-muted text-base font-semibold tracking-[0.1em] uppercase transition-colors duration-200 hover:text-accent hover:bg-warm focus-ring"
               >
                 {link.label}
               </a>
@@ -100,7 +100,7 @@ export default function Navbar() {
               <a
                 href={link.href}
                 onClick={() => setOpen(false)}
-                className="block px-8 py-3.5 no-underline text-muted text-[0.85rem] font-semibold tracking-[0.1em] uppercase transition-colors duration-200 hover:text-accent hover:bg-warm focus-ring"
+                className="block px-8 py-3.5 no-underline text-muted text-base font-semibold tracking-[0.1em] uppercase transition-colors duration-200 hover:text-accent hover:bg-warm focus-ring"
               >
                 {link.label}
               </a>

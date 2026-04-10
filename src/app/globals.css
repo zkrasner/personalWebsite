@@ -14,6 +14,17 @@
   --font-body: "Source Sans 3", Georgia, serif;
 
   --radius-card: 10px;
+
+  --font-size-xs: 0.7rem;
+  --font-size-sm: 0.8rem;
+  --font-size-base: 0.85rem;
+  --font-size-md: 1rem;
+  --font-size-lg: 1.25rem;
+  --font-size-xl: 1.4rem;
+  --font-size-2xl: 2.5rem;
+  --font-size-3xl: 3.5rem;
+  --font-size-4xl: 5.5rem;
+  --font-size-5xl: 6rem;
 }
 
 html {
@@ -70,7 +81,7 @@ body {
 }
 
 .section-subheader {
-  @apply font-heading text-[0.85rem] font-bold tracking-[0.15em] uppercase text-accent mb-6 pb-3 border-b-2 border-ink;
+  @apply font-heading text-base font-bold tracking-[0.15em] uppercase text-accent mb-6 pb-3 border-b-2 border-ink;
 }
 
 .card-hover {

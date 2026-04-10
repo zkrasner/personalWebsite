@@ -11,14 +11,14 @@ export default function Education() {
         <h3 className="section-subheader">Education</h3>
         <div>
           <div className="flex justify-between items-start gap-2">
-            <div className="font-heading font-bold text-[1.2rem]">
+            <div className="font-heading font-bold text-xl">
               {education.school}
             </div>
             <div className="text-right shrink-0">
-              <div className="text-[0.8rem] text-muted font-medium">
+              <div className="text-sm text-muted font-medium">
                 {education.location}
               </div>
-              <div className="text-[0.75rem] text-muted">{education.years}</div>
+              <div className="text-sm text-muted">{education.years}</div>
             </div>
           </div>
           <div className="italic text-body my-1">{education.degree}</div>
@@ -31,14 +31,14 @@ export default function Education() {
         <div className="space-y-4">
           {skillGroups.map((group) => (
             <div key={group.label}>
-              <div className="text-[0.72rem] font-bold uppercase tracking-[0.1em] text-accent mb-1.5">
+              <div className="text-xs font-bold uppercase tracking-[0.1em] text-accent mb-1.5">
                 {group.label}
               </div>
               <div className="flex flex-wrap gap-1.5">
                 {group.skills.map((skill) => (
                   <span
                     key={skill}
-                    className="px-2.5 py-1 bg-warm rounded-card text-[0.82rem] font-medium text-ink border-l-4 border-l-transparent hover:border-l-accent card-hover"
+                    className="px-2.5 py-1 bg-warm rounded-card text-sm font-medium text-ink border-l-4 border-l-transparent hover:border-l-accent card-hover"
                   >
                     {skill}
                   </span>
