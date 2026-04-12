@@ -19,3 +19,18 @@ next-env.d.ts
 # env
 .env
 .env.*
+!.env.local.example
+
+# data
+data/book-overrides.json
+
+# terraform
+infra/terraform/.terraform/
+infra/terraform/*.tfstate*
+infra/terraform/*.tfvars
+
+# cloud function build artifacts
+infra/functions/*/dist/
+infra/functions/*/shared/
+infra/functions/*/node_modules/
+infra/*.zip
