@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Book } from "@/data/books";
+import type { Book } from "@/types/book";
 
 export default function BookCard({ book }: { book: Book }) {
   const [imgFailed, setImgFailed] = useState(false);
