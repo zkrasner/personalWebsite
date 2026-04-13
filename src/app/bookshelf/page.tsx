@@ -23,7 +23,7 @@ export default function BookshelfPage() {
       <Navbar />
       <main
         id="main-content"
-        className="max-w-[960px] mx-auto px-8 pt-28 pb-16"
+        className="w-full max-w-[960px] mx-auto px-8 pt-28 pb-16 flex-1"
       >
         <SectionHeader>Bookshelf</SectionHeader>
         <BookshelfContent />

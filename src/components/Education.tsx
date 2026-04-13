@@ -1,5 +1,6 @@
 import { education, skillGroups } from "@/data/resume";
 import BulletList from "@/components/BulletList";
+import Chip from "@/components/Chip";
 
 export default function Education() {
   return (
@@ -36,12 +37,9 @@ export default function Education() {
               </div>
               <div className="flex flex-wrap gap-1.5">
                 {group.skills.map((skill) => (
-                  <span
-                    key={skill}
-                    className="px-2.5 py-1 bg-warm rounded-card text-sm font-medium text-ink border-l-4 border-l-transparent hover:border-l-accent card-hover"
-                  >
+                  <Chip key={skill} interactive>
                     {skill}
-                  </span>
+                  </Chip>
                 ))}
               </div>
             </div>

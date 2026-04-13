@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <main id="main-content">
+      <main id="main-content" className="flex-1 w-full">
         <Hero />
         <SectionDivider />
         <Experience />

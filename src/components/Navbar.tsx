@@ -13,7 +13,10 @@ export default function Navbar() {
     { label: "Interests", href: "/#interests" },
   ];
 
-  const pageLinks = [{ label: "Bookshelf", href: "/bookshelf" }];
+  const pageLinks = [
+    { label: "Projects", href: "/projects" },
+    { label: "Bookshelf", href: "/bookshelf" },
+  ];
 
   useEffect(() => {
     if (!open) return;
