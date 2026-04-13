@@ -78,7 +78,7 @@ export default function Hero() {
         variant="outline"
         className="fade-in max-md:order-first max-md:max-w-[250px] max-sm:max-w-[200px]"
       >
-        <div className="relative w-full aspect-[3/4] overflow-hidden border-3 border-ink rounded-card z-2 card-hover">
+        <div className="relative w-full aspect-[3/4] overflow-hidden border-4 border-ink rounded-card z-2 card-hover">
           <Image
             src="/photo.jpeg"
             alt="Zachary Krasner"

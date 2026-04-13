@@ -4,8 +4,8 @@ import { useState } from "react";
 import type { Job } from "@/data/resume";
 import RoleContent from "@/components/RoleContent";
 import RoleDropdown from "@/components/RoleDropdown";
-import AccentOutline from "@/components/AccentOutline";
 import RoleLabel from "@/components/RoleLabel";
+import ToggleButton from "@/components/ToggleButton";
 
 export default function TimelineItem({ job }: { job: Job }) {
   const [activeRole, setActiveRole] = useState(job.roles[0].key);
@@ -39,26 +39,13 @@ export default function TimelineItem({ job }: { job: Job }) {
       {/* Desktop tabs */}
       <div className="flex gap-4 flex-wrap mb-5 max-md:hidden">
         {job.roles.map((role) => (
-          <AccentOutline
+          <ToggleButton
             key={role.key}
-            size="sm"
-            className={
-              activeRole === role.key
-                ? "[&>:last-child]:opacity-100"
-                : "[&>:last-child]:opacity-30 hover:[&>:last-child]:opacity-60"
-            }
+            active={activeRole === role.key}
+            onClick={() => setActiveRole(role.key)}
           >
-            <button
-              onClick={() => setActiveRole(role.key)}
-              className={`relative z-2 px-3.5 py-1.5 rounded-card border-[1.5px] bg-warm cursor-pointer transition-all duration-200 tracking-[0.02em] focus-ring card-hover ${
-                activeRole === role.key
-                  ? "text-ink border-ink"
-                  : "text-muted border-ink/40 hover:text-ink hover:border-ink"
-              }`}
-            >
-              <RoleLabel title={role.title} dates={role.dates} />
-            </button>
-          </AccentOutline>
+            <RoleLabel title={role.title} dates={role.dates} />
+          </ToggleButton>
         ))}
       </div>
 

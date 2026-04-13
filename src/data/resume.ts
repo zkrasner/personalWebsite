@@ -1,9 +1,19 @@
+export interface RoleProduct {
+  name: string;
+  description: string;
+  slug?: string;
+}
+
+export interface RoleBullet {
+  text: string;
+  products?: RoleProduct[];
+}
+
 export interface Role {
   title: string;
   key: string;
   dates: string;
-  bullets: string[];
-  products?: { name: string; description: string }[];
+  bullets: RoleBullet[];
 }
 
 export interface Job {
@@ -51,30 +61,47 @@ export const jobs: Job[] = [
         key: "cto",
         dates: "Aug 2022 — Present",
         bullets: [
-          "Grew engineering team from 0 to 12 and drove company revenue from $5M to $30M+ ARR by removing the technical bottlenecks constraining sales and delivery capacity.",
-          "Architected and led development of a full-stack donor data platform spanning multiple systems and 40M+ donor profiles:",
-          "Established a culture of engineering excellence by implementing CI/CD pipelines, rolling out AI-assisted development tooling across engineers and analysts, and achieving SOC 2 Type 1 certification.",
-        ],
-        products: [
           {
-            name: "Moosehead",
-            description:
-              "Internal analyst querying platform reducing data retrieval from 15+ minutes to under 30 seconds, with improved security, repeatability, and result quality.",
+            text: "Grew engineering team from 0 to 12 and drove company revenue from $5M to $30M+ ARR by removing the technical bottlenecks constraining sales and delivery capacity.",
           },
           {
-            name: "Algo",
-            description:
-              "Processes hundreds of millions of donation records applying regression analysis to generate hundreds of unique datapoints and categorizations per donor profile.",
+            text: "Architected and led development of a full-stack donor data platform spanning multiple systems and 40M+ donor profiles:",
+            products: [
+              {
+                name: "Moosehead",
+                slug: "moosehead",
+                description:
+                  "Internal analyst querying platform reducing data retrieval from 15+ minutes to under 30 seconds, with improved security, repeatability, and result quality.",
+              },
+              {
+                name: "Algo",
+                description:
+                  "Processes hundreds of millions of donation records applying regression analysis to generate hundreds of unique datapoints and categorizations per donor profile.",
+              },
+              {
+                name: "Click Collective",
+                description:
+                  "Ingests and preprocesses billions of email exhaust events across hundreds of clients to predict future donor interactions.",
+              },
+              {
+                name: "Apical",
+                description:
+                  "SaaS platform unifying fragmented campaign and nonprofit data toolsets and overlaying proprietary analytics.",
+              },
+            ],
           },
           {
-            name: "Click Collective",
-            description:
-              "Ingests and preprocesses billions of email exhaust events across hundreds of clients to predict future donor interactions.",
+            text: "Acquired and integrated AI SaaS platform and team members into our engineering workflows. ",
+            products: [
+              {
+                name: "Quiller",
+                description:
+                  "AI SaaS platform enabling mission-driven organizations to responsibly create high-impact content. Acquired in late 2025.",
+              },
+            ],
           },
           {
-            name: "Apical",
-            description:
-              "SaaS platform unifying fragmented campaign and nonprofit data toolsets and overlaying proprietary analytics.",
+            text: "Established a culture of engineering excellence by implementing CI/CD pipelines, rolling out AI-assisted development tooling across engineers and analysts, and achieving SOC 2 Type 1 certification.",
           },
         ],
       },
@@ -83,7 +110,9 @@ export const jobs: Job[] = [
         key: "board",
         dates: "Jan 2021 — Jan 2023",
         bullets: [
-          "Advised the executive team on technical strategy and infrastructure roadmap, and upskilled the data science team, before transitioning to the CTO role full-time.",
+          {
+            text: "Advised the executive team on technical strategy and infrastructure roadmap, and upskilled the data science team, before transitioning to the CTO role full-time.",
+          },
         ],
       },
     ],
@@ -100,9 +129,15 @@ export const jobs: Job[] = [
         key: "senior",
         dates: "Sep 2020 — Aug 2022",
         bullets: [
-          "Partnered with quantitative analysts to implement 10-year tactical and long-term assumption sets into the portfolio construction platform, translating complex Excel-based financial models into production Scala code.",
-          "Led extraction of a monolithic permission system into a unified Kafka/Flink microservice, consolidating access control across multiple related client-facing platforms.",
-          "Built and maintained a real-time portfolio construction platform used by client managers globally, instrumental in securing billions in AUM from institutional investors including endowments, pensions, and sovereign wealth funds.",
+          {
+            text: "Partnered with quantitative analysts to implement 10-year tactical and long-term assumption sets into the portfolio construction platform, translating complex Excel-based financial models into production Scala code.",
+          },
+          {
+            text: "Led extraction of a monolithic permission system into a unified Kafka/Flink microservice, consolidating access control across multiple related client-facing platforms.",
+          },
+          {
+            text: "Built and maintained a real-time portfolio construction platform used by client managers globally, instrumental in securing billions in AUM from institutional investors including endowments, pensions, and sovereign wealth funds.",
+          },
         ],
       },
       {
@@ -110,8 +145,12 @@ export const jobs: Job[] = [
         key: "mid",
         dates: "Sep 2018 — Sep 2020",
         bullets: [
-          "Built CI/CD infrastructure for a team of ~15 engineers using Jenkins, implementing automated unit, end-to-end, load and performance test pipelines with results reported back to Bitbucket.",
-          "Worked with the infrastructure team to enable ephemeral cloud workspaces for QA, dramatically reducing environment setup friction and accelerating release cycles.",
+          {
+            text: "Built CI/CD infrastructure for a team of ~15 engineers using Jenkins, implementing automated unit, end-to-end, load and performance test pipelines with results reported back to Bitbucket.",
+          },
+          {
+            text: "Worked with the infrastructure team to enable ephemeral cloud workspaces for QA, dramatically reducing environment setup friction and accelerating release cycles.",
+          },
         ],
       },
       {
@@ -119,7 +158,9 @@ export const jobs: Job[] = [
         key: "associate",
         dates: "Sep 2016 — Sep 2018",
         bullets: [
-          "Joined at the inception of the Portfolio Construction platform within the Client Service department, contributing to the foundational build designed to replace hundreds of hours of bespoke analyst modeling with real-time portfolio construction in live client meetings.",
+          {
+            text: "Joined at the inception of the Portfolio Construction platform within the Client Service department, contributing to the foundational build designed to replace hundreds of hours of bespoke analyst modeling with real-time portfolio construction in live client meetings.",
+          },
         ],
       },
     ],
@@ -136,7 +177,9 @@ export const jobs: Job[] = [
         key: "intern",
         dates: "May 2015 — Aug 2015",
         bullets: [
-          "Built a thin-client visualization tool for tracking annual flu rates and variants across a user's hospital and surrounding facilities, implementing custom SVG charts from scratch.",
+          {
+            text: "Built a thin-client visualization tool for tracking annual flu rates and variants across a user's hospital and surrounding facilities, implementing custom SVG charts from scratch.",
+          },
         ],
       },
     ],

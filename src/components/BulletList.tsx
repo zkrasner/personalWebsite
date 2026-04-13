@@ -1,4 +1,4 @@
-const bulletClass =
+export const bulletClass =
   "pl-5 relative mb-3 text-md leading-[1.7] text-body before:content-[''] before:absolute before:left-0 before:top-[0.6em] before:w-1.5 before:h-1.5 before:rounded-sm before:bg-accent";
 
 export default function BulletList({

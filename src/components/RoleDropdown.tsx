@@ -43,7 +43,7 @@ export default function RoleDropdown({
           onClick={() => setOpen(!open)}
           aria-expanded={open}
           aria-haspopup="listbox"
-          className="w-full text-left px-3.5 pr-10 py-2 rounded-card border-[1.5px] border-ink bg-warm cursor-pointer relative z-2 transition-all duration-200 focus-ring"
+          className="w-full text-left px-3.5 pr-10 py-2 rounded-card border border-ink bg-warm cursor-pointer relative z-2 transition-all duration-200 focus-ring"
         >
           <RoleLabel title={active.title} dates={active.dates} />
           <span
