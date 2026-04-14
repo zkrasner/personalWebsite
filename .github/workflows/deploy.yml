@@ -28,6 +28,7 @@ jobs:
       - run: npm run build
         env:
           NEXT_PUBLIC_BOOKS_API_URL: ${{ vars.NEXT_PUBLIC_BOOKS_API_URL }}
+          NEXT_PUBLIC_GA_ID: ${{ vars.NEXT_PUBLIC_GA_ID }}
 
       - uses: actions/upload-pages-artifact@v3
         with:
