@@ -10,6 +10,7 @@
 /.claude/
 /mockups/
 *.png
+!public/projects/*.png
 *.pdf
 *.iml
 CC93505D-*.jpeg

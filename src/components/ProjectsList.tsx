@@ -3,22 +3,10 @@
 import { useMemo } from "react";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import type { Project } from "@/data/projects";
-import { TECH_FILTERS } from "@/data/projects";
 import ProjectCard from "@/components/ProjectCard";
 import ToggleButton from "@/components/ToggleButton";
 
 type TypeFilter = "all" | "work" | "side";
-
-function flattenTech(tech: Project["tech"]): string[] {
-  return [
-    ...(tech.frontend ?? []),
-    ...(tech.backend ?? []),
-    ...(tech.data ?? []),
-    ...(tech.infrastructure ?? []),
-    ...(tech.testing ?? []),
-    ...(tech.other ?? []),
-  ];
-}
 
 function projectYears(project: Project): number[] {
   const start = Number(project.startDate.split("-")[0]);
@@ -38,7 +26,6 @@ export default function ProjectsList({ projects }: { projects: Project[] }) {
   const rawType = searchParams.get("type") ?? "all";
   const type: TypeFilter =
     rawType === "work" || rawType === "side" ? rawType : "all";
-  const tech = searchParams.get("tech") ?? "all";
   const year = searchParams.get("year") ?? "all";
 
   const updateParam = (key: string, value: string) => {
@@ -65,12 +52,11 @@ export default function ProjectsList({ projects }: { projects: Project[] }) {
   const filtered = useMemo(() => {
     return projects
       .filter((p) => type === "all" || p.type === type)
-      .filter((p) => tech === "all" || flattenTech(p.tech).includes(tech))
       .filter((p) => year === "all" || projectYears(p).includes(Number(year)))
       .sort((a, b) => b.startDate.localeCompare(a.startDate));
-  }, [projects, type, tech, year]);
+  }, [projects, type, year]);
 
-  const isFiltered = type !== "all" || tech !== "all" || year !== "all";
+  const isFiltered = type !== "all" || year !== "all";
   const reset = () => {
     router.replace(pathname, { scroll: false });
   };
@@ -92,30 +78,13 @@ export default function ProjectsList({ projects }: { projects: Project[] }) {
           ))}
         </div>
 
-        {/* Tech dropdown */}
-        <label className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.08em] text-muted">
-          Tech
-          <select
-            value={tech}
-            onChange={(e) => updateParam("tech", e.target.value)}
-            className="px-2 py-1 bg-warm border border-rule rounded-card text-xs font-medium text-ink cursor-pointer focus-ring"
-          >
-            <option value="all">All</option>
-            {TECH_FILTERS.map((t) => (
-              <option key={t} value={t}>
-                {t}
-              </option>
-            ))}
-          </select>
-        </label>
-
         {/* Year dropdown */}
         <label className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.08em] text-muted">
           Year
           <select
             value={year}
             onChange={(e) => updateParam("year", e.target.value)}
-            className="px-2 py-1 bg-warm border border-rule rounded-card text-xs font-medium text-ink cursor-pointer focus-ring"
+            className="px-2 py-2 min-h-[44px] bg-warm border border-rule rounded-card text-xs font-medium text-ink cursor-pointer focus-ring"
           >
             <option value="all">All</option>
             {availableYears.map((y) => (
@@ -129,24 +98,26 @@ export default function ProjectsList({ projects }: { projects: Project[] }) {
         {isFiltered && (
           <button
             onClick={reset}
-            className="text-xs font-semibold text-accent cursor-pointer hover:underline focus-ring rounded-sm"
+            className="text-xs font-semibold text-accent cursor-pointer hover:underline focus-ring rounded-sm min-h-[44px]"
           >
             Reset
           </button>
         )}
       </div>
 
-      {filtered.length === 0 ? (
-        <p className="text-sm text-muted italic">
-          No projects match these filters.
-        </p>
-      ) : (
-        <div className="flex flex-col gap-6">
-          {filtered.map((project) => (
-            <ProjectCard key={project.slug} project={project} />
-          ))}
-        </div>
-      )}
+      <div aria-live="polite">
+        {filtered.length === 0 ? (
+          <p className="text-sm text-muted italic">
+            No projects match these filters.
+          </p>
+        ) : (
+          <div className="flex flex-col gap-6">
+            {filtered.map((project) => (
+              <ProjectCard key={project.slug} project={project} />
+            ))}
+          </div>
+        )}
+      </div>
     </>
   );
 }
