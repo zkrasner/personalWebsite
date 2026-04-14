@@ -25,6 +25,13 @@ export async function generateMetadata({
   if (!project) return {};
 
   const url = `https://zkrasner.com/projects/${project.slug}`;
+  const ogImage = project.coverImage
+    ? {
+        url: `https://zkrasner.com${project.coverImage}`,
+        width: 1280,
+        height: 720,
+      }
+    : undefined;
   return {
     title: `${project.title} | Zach Krasner`,
     description: project.description,
@@ -35,6 +42,7 @@ export async function generateMetadata({
       url,
       siteName: "Zach Krasner",
       type: "article",
+      ...(ogImage && { images: [ogImage] }),
     },
   };
 }
@@ -103,8 +111,25 @@ export default async function ProjectDetailPage({
   const liveLink = findLiveLink(project);
   const hasMetrics = project.metrics && project.metrics.length > 0;
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    name: project.title,
+    description: project.description,
+    url: `https://zkrasner.com/projects/${project.slug}`,
+    author: { "@type": "Person", name: "Zach Krasner" },
+    dateCreated: project.startDate,
+    ...(project.coverImage && {
+      image: `https://zkrasner.com${project.coverImage}`,
+    }),
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <Navbar />
       <main
         id="main-content"
