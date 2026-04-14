@@ -37,8 +37,8 @@ export const shoregrounds: Project = {
   ],
 
   outcomes: [
-    "First iteration shipped and live at shoregrounds.com.",
-    "My wife and I use it ourselves every weekend to find new shops to visit and beans to try at home.",
+    "First iteration shipped and live at the link above.",
+    "My wife and I use it ourselves on the weekend to find new shops to visit and beans to try at home.",
   ],
 
   sections: [
