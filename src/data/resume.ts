@@ -75,6 +75,7 @@ export const jobs: Job[] = [
               },
               {
                 name: "Algo",
+                slug: "algo",
                 description:
                   "Processes hundreds of millions of donation records applying regression analysis to generate hundreds of unique datapoints and categorizations per donor profile.",
               },

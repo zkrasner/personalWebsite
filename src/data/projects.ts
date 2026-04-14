@@ -10,6 +10,7 @@ export type {
 
 import type { Project } from "./projects/types";
 import { moosehead } from "./projects/moosehead";
+import { algo } from "./projects/algo";
 import { shoregrounds } from "./projects/shoregrounds";
 
-export const projects: Project[] = [moosehead, shoregrounds];
+export const projects: Project[] = [moosehead, algo, shoregrounds];
