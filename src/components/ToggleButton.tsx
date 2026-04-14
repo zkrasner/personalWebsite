@@ -25,7 +25,7 @@ export default function ToggleButton({
     >
       <button
         onClick={onClick}
-        className={`relative z-2 px-3.5 py-1.5 rounded-card border bg-warm cursor-pointer transition-all duration-200 tracking-[0.02em] focus-ring card-hover ${
+        className={`relative z-2 px-3.5 py-2.5 min-h-[44px] rounded-card border bg-warm cursor-pointer transition-all duration-200 tracking-[0.02em] focus-ring card-hover ${
           active
             ? "text-ink border-ink"
             : "text-muted border-ink/40 hover:text-ink hover:border-ink"

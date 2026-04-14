@@ -83,12 +83,6 @@ Rules of thumb:
 
 </details>
 
-<details><summary>Adding a tech to the filter dropdown</summary>
-
-The `/projects` page has a tech filter dropdown sourced from `TECH_FILTERS` at the top of `src/data/projects.ts`. It is **curated, not auto-generated** — only add entries that are filter-worthy across multiple projects (Python, React, GCP, etc.). One-off tools don't belong.
-
-</details>
-
 ## 4. Write the rich content (problem/approach/outcomes)
 
 <details><summary>Structure and tone</summary>
