@@ -6,11 +6,12 @@ How to add a new entry to `/projects` and (optionally) link to it from the Exper
 
 <details><summary>Quick reference for repeat additions</summary>
 
-1. Add an entry to `projects` in `src/data/projects.ts`
-2. (Optional) Capture a screenshot to `public/projects/{slug}.png` and set `coverImage`
-3. (Optional) Add the slug to a Role bullet's `products` array in `src/data/resume.ts` to link from Experience
-4. Run `npm run build` and verify the new pages are listed under `/projects/[slug]`
-5. Spot-check `/projects` and the new detail page in dev or via `npx serve out`
+1. Create `src/data/projects/{slug}.ts` with the project data (import type from `./types`)
+2. Add the import and entry to the `projects` array in `src/data/projects.ts`
+3. (Optional) Capture a screenshot to `public/projects/{slug}.png` and set `coverImage`
+4. (Optional) Add the slug to a Role bullet's `products` array in `src/data/resume.ts` to link from Experience
+5. Run `npm run build` and verify the new pages are listed under `/projects/[slug]`
+6. Spot-check `/projects` and the new detail page in dev or via `npx serve out`
 
 </details>
 
@@ -55,7 +56,7 @@ Most projects belong to exactly one of these.
 - `problem: ["paragraph 1", "paragraph 2"]` — what was broken or needed
 - `approach: [...]` — what you built and why
 - `outcomes: [...]` — what changed; concrete metrics if you have them
-- `metrics: [{ label: "Query time", before: "15 min", after: "< 15 sec" }, { label: "Weekly requests", value: "~10,000" }]` — captured but not yet rendered specially
+- `metrics: [{ label: "Query time", before: "15 min", after: "< 15 sec" }, { label: "Weekly requests", value: "~10,000" }]` — renders as stat cards below outcomes text
 - `sections: [{ heading: "What's next", body: "..." }]` — freeform content beyond problem/approach/outcomes
 
 </details>
@@ -87,7 +88,7 @@ Rules of thumb:
 
 <details><summary>Structure and tone</summary>
 
-Each is an array of paragraphs, rendered as `<p>` tags on the detail page in order. The site favors plain prose over bullet lists for these sections.
+Each is an array of strings, rendered as bulleted lists on the detail page. Each string becomes one `<li>`.
 
 - **Problem**: what was broken before this project, who suffered, what was the cost of the status quo? Concrete examples (durations, error rates, headcount) land harder than adjectives.
 - **Approach**: what you built and the key technical/product decisions. Include the _why_ of unusual choices (e.g. "chose Vue because the team already knew it, not because I preferred it").
@@ -105,14 +106,22 @@ The site reserves em-dashes (—) for date ranges only. In prose, use commas, pe
 
 ## 5. Capture a screenshot (optional)
 
-<details><summary>Conventions</summary>
+<details><summary>Conventions and how to capture</summary>
 
-- Capture the live site at **1280×720** (16:9 aspect ratio)
-- Save as `public/projects/{slug}.png`
+- Save as `public/projects/{slug}.png` (the `.gitignore` has an exception for this path)
 - Set `coverImage: "/projects/{slug}.png"` in the project entry
 - The card and detail page render the image automatically; if the file is missing, the image area collapses gracefully
+- The cover image also serves as the OpenGraph image for link previews
 
-If the project has no live URL or you don't have a good screenshot yet, leave `coverImage` unset and the card stays text-only.
+**How to capture at 1280×720:**
+
+1. Open Chrome, navigate to the page you want to screenshot
+2. Open DevTools (`Cmd+Option+I`)
+3. Enter responsive mode (`Cmd+Shift+M`) and set dimensions to **1280 × 720**
+4. Navigate to the view you want to showcase
+5. `Cmd+Shift+P` → type "screenshot" → select **"Capture screenshot"** (not "full size")
+
+For internal/private tools: blur or redact any sensitive data before saving, or leave `coverImage` unset.
 
 </details>
 
@@ -165,7 +174,7 @@ The build output should list the new page under `● /projects/[slug]` with your
 
 Spot-check:
 
-- `/projects` — new card appears, sorted by `startDate` desc, filterable by type/tech/year
+- `/projects` — new card appears, sorted by `startDate` desc, filterable by type/year
 - `/projects/{slug}` — title, meta row, sections, tech stack all render
 - Experience section (if you linked it) — product card appears under the right bullet, links to the detail page
 - Mobile width — card layout stacks correctly
@@ -174,5 +183,5 @@ Spot-check:
 
 ## Reference: existing examples
 
-- [`Moosehead`](../src/data/projects.ts) — work project with full sections, metrics, no live URL, linked from Experience
-- [`ShoreGrounds`](../src/data/projects.ts) — solo side project with live URL, lighter tech stack
+- [`Moosehead`](../src/data/projects/moosehead.ts) — work project with full sections, metrics, no live URL, linked from Experience
+- [`ShoreGrounds`](../src/data/projects/shoregrounds.ts) — solo side project with live URL, cover image, lighter tech stack
