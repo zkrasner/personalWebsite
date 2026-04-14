@@ -3,9 +3,13 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import SectionHeader from "@/components/SectionHeader";
+import ProjectImage from "@/components/ProjectImage";
+import MetricCard from "@/components/MetricCard";
+import Chip from "@/components/Chip";
 import { projects, type Project } from "@/data/projects";
 import { formatDateRange } from "@/lib/dates";
-import Chip from "@/components/Chip";
+import { findLiveLink, stripProtocol } from "@/lib/projects";
 
 export function generateStaticParams() {
   return projects.map((p) => ({ slug: p.slug }));
@@ -35,14 +39,6 @@ export async function generateMetadata({
   };
 }
 
-function findLiveLink(project: Project) {
-  return project.links?.find((l) => l.label.toLowerCase().includes("live"));
-}
-
-function stripProtocol(url: string) {
-  return url.replace(/^https?:\/\//, "").replace(/\/$/, "");
-}
-
 function TechList({ tech }: { tech: Project["tech"] }) {
   const categories: { label: string; items?: string[] }[] = [
     { label: "Frontend", items: tech.frontend },
@@ -54,9 +50,9 @@ function TechList({ tech }: { tech: Project["tech"] }) {
   ].filter((c) => c.items && c.items.length > 0);
 
   return (
-    <div className="grid grid-cols-2 gap-4 max-sm:grid-cols-1">
+    <div className="columns-2 max-sm:columns-1 gap-6">
       {categories.map((c) => (
-        <div key={c.label}>
+        <div key={c.label} className="break-inside-avoid mb-5">
           <div className="text-xs font-bold uppercase tracking-[0.1em] text-accent mb-1.5">
             {c.label}
           </div>
@@ -82,14 +78,14 @@ function Section({
 }) {
   return (
     <section className="mb-12 fade-in">
-      <h2 className="section-subheader">{heading}</h2>
-      <div className="space-y-4">
+      <SectionHeader>{heading}</SectionHeader>
+      <ul className="list-disc pl-5 space-y-3">
         {paragraphs.map((p, i) => (
-          <p key={i} className="text-md leading-[1.7] text-body">
+          <li key={i} className="text-md leading-[1.7] text-body">
             {p}
-          </p>
+          </li>
         ))}
-      </div>
+      </ul>
     </section>
   );
 }
@@ -105,6 +101,7 @@ export default async function ProjectDetailPage({
 
   const typeBadge = project.type === "work" ? "Work" : "Side";
   const liveLink = findLiveLink(project);
+  const hasMetrics = project.metrics && project.metrics.length > 0;
 
   return (
     <>
@@ -161,27 +158,59 @@ export default async function ProjectDetailPage({
           </div>
         </header>
 
-        {/* Content sections */}
+        {/* Cover image */}
+        {project.coverImage && (
+          <div className="mb-12 fade-in">
+            <ProjectImage
+              src={project.coverImage}
+              alt={`${project.title} screenshot`}
+            />
+          </div>
+        )}
+
+        {/* Problem */}
         {project.problem && (
           <Section heading="Problem" paragraphs={project.problem} />
         )}
+
+        {/* Approach */}
         {project.approach && (
           <Section heading="Approach" paragraphs={project.approach} />
         )}
-        {project.outcomes && (
-          <Section heading="Outcomes" paragraphs={project.outcomes} />
+
+        {/* Tech Stack */}
+        <section className="mb-12 fade-in">
+          <SectionHeader>Tech Stack</SectionHeader>
+          <TechList tech={project.tech} />
+        </section>
+
+        {/* Outcomes */}
+        {(project.outcomes || hasMetrics) && (
+          <section className="mb-12 fade-in">
+            <SectionHeader>Outcomes</SectionHeader>
+            {project.outcomes && (
+              <ul className="list-disc pl-5 space-y-3">
+                {project.outcomes.map((p, i) => (
+                  <li key={i} className="text-md leading-[1.7] text-body">
+                    {p}
+                  </li>
+                ))}
+              </ul>
+            )}
+            {hasMetrics && (
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-5 mt-8">
+                {project.metrics!.map((m) => (
+                  <MetricCard key={m.label} metric={m} />
+                ))}
+              </div>
+            )}
+          </section>
         )}
 
         {/* Optional freeform sections */}
         {project.sections?.map((s) => (
           <Section key={s.heading} heading={s.heading} paragraphs={[s.body]} />
         ))}
-
-        {/* Tech stack */}
-        <section className="mb-12 fade-in">
-          <h2 className="section-subheader">Tech Stack</h2>
-          <TechList tech={project.tech} />
-        </section>
       </main>
       <Footer />
     </>
