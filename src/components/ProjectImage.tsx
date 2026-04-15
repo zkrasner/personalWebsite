@@ -6,9 +6,11 @@ import { createPortal } from "react-dom";
 export default function ProjectImage({
   src,
   alt,
+  fit = "cover",
 }: {
   src: string;
   alt: string;
+  fit?: "cover" | "contain";
 }) {
   const [failed, setFailed] = useState(false);
   const [open, setOpen] = useState(false);
@@ -42,14 +44,14 @@ export default function ProjectImage({
         ref={triggerRef}
         type="button"
         onClick={() => setOpen(true)}
-        className="relative z-2 aspect-video rounded-card overflow-hidden bg-warm border border-rule w-full cursor-zoom-in group focus-ring"
+        className={`relative z-2 rounded-card overflow-hidden w-full cursor-zoom-in group focus-ring ${fit === "contain" ? "" : "aspect-video bg-warm border border-rule"}`}
         aria-label={`View ${alt} full size`}
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={src}
           alt={alt}
-          className="w-full h-full object-cover"
+          className={`w-full h-full ${fit === "contain" ? "object-contain" : "object-cover"}`}
           onError={() => setFailed(true)}
         />
         <span className="absolute bottom-3 right-3 bg-ink/60 text-paper rounded-full p-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-200">

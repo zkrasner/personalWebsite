@@ -209,6 +209,18 @@ export default async function ProjectDetailPage({
           <TechList tech={project.tech} />
         </section>
 
+        {/* System Design */}
+        {project.systemDesign && (
+          <section className="mb-12 fade-in">
+            <SectionHeader>System Design</SectionHeader>
+            <ProjectImage
+              src={project.systemDesign}
+              alt={`${project.title} system architecture diagram`}
+              fit="contain"
+            />
+          </section>
+        )}
+
         {/* Outcomes */}
         {(project.outcomes || hasMetrics) && (
           <section className="mb-12 fade-in">

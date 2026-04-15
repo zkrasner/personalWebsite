@@ -42,6 +42,8 @@ export interface Project {
   tech: ProjectTech;
   // Convention: /projects/{slug}.png — manual 1280×720 (16:9) screenshot
   coverImage?: string;
+  // Convention: /projects/{slug}-architecture.svg — system design diagram
+  systemDesign?: string;
   links?: ProjectLink[];
 
   problem?: string[];
