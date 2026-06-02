@@ -39,7 +39,7 @@ export interface Interest {
 export const summary = {
   name: { first: "Zach", last: "Krasner" },
   tagline: "Engineering leader. Builder of platforms. Reader of sci-fi.",
-  bio: "Software engineer and technical leader with 10 years of experience architecting data platforms and backend systems. Built and scaled engineering teams, modernized legacy infrastructure, and shipped products 0 to 1 that drive measurable business outcomes. Deep expertise in Python, SQL, GCP, and data pipeline design. Driven by curiosity and a bias for ownership, most at home in environments where engineering and product strategy intersect.",
+  bio: "Software engineer and technical leader with 10 years of experience architecting data platforms, backend systems, and AI-powered products. Built and scaled engineering teams, led an M&A process, and shipped products from 0 to 1 that drive measurable business outcomes. Hands-on across the stack, with recent focus on agentic systems and LLM tool use. Driven by curiosity, a deep sense of ownership, and a desire to work alongside sharp people on hard problems.",
   location: "Boston, MA",
   links: {
     linkedin: "https://linkedin.com/in/zkrasner",
@@ -62,7 +62,7 @@ export const jobs: Job[] = [
         dates: "Aug 2022 — Present",
         bullets: [
           {
-            text: "Grew engineering team from 0 to 12 and drove company revenue from $5M to $30M+ ARR by removing the technical bottlenecks constraining sales and delivery capacity.",
+            text: "Grew engineering team from 0 to 14 and drove company revenue from $5M to $30M+ ARR by removing the technical bottlenecks constraining sales and delivery capacity.",
           },
           {
             text: "Architected and led development of a full-stack donor data platform spanning multiple systems and 40M+ donor profiles:",
@@ -92,17 +92,10 @@ export const jobs: Job[] = [
             ],
           },
           {
-            text: "Acquired and integrated AI SaaS platform and team members into our engineering workflows. ",
-            products: [
-              {
-                name: "Quiller",
-                description:
-                  "AI SaaS platform enabling mission-driven organizations to responsibly create high-impact content. Acquired in late 2025.",
-              },
-            ],
+            text: "Led technical due diligence and integration feasibility assessment for the acquisition of Quiller, an AI-powered fundraising platform; participated in strategic business decisions throughout the deal process.",
           },
           {
-            text: "Established a culture of engineering excellence by implementing CI/CD pipelines, rolling out AI-assisted development tooling across engineers and analysts, and achieving SOC 2 Type 1 certification.",
+            text: "Established a culture of engineering excellence by implementing robust testing and CI/CD pipelines, rolling out AI-assisted development tooling (Copilot → Claude Code) across engineers and analysts, and achieving SOC 2 Type 1 certification.",
           },
         ],
       },
@@ -202,6 +195,10 @@ export const education = {
 
 export const skillGroups: SkillGroup[] = [
   {
+    label: "Leadership",
+    skills: ["Team Building", "Technical Strategy", "Founding Engineer 0-to-1"],
+  },
+  {
     label: "Languages & Frameworks",
     skills: [
       "Python",
@@ -211,9 +208,20 @@ export const skillGroups: SkillGroup[] = [
       "Scala",
       "JavaScript",
       "TypeScript",
-      "Next.js",
       "React",
+      "Next.js",
       "Vue",
+    ],
+  },
+  {
+    label: "AI & LLMs",
+    skills: [
+      "Claude Code",
+      "Copilot",
+      "Anthropic API",
+      "Azure OpenAI Service",
+      "LLM Tool Use",
+      "Agentic Systems",
     ],
   },
   {
@@ -222,11 +230,13 @@ export const skillGroups: SkillGroup[] = [
   },
   {
     label: "Data & Databases",
-    skills: ["PostgreSQL", "BigQuery", "ETL", "Data Pipelines"],
-  },
-  {
-    label: "Leadership",
-    skills: ["Team Building", "Technical Strategy", "0-to-1 Engineering"],
+    skills: [
+      "BigQuery",
+      "Cloud Storage",
+      "PostgreSQL",
+      "Data Ingestion Pipelines",
+      "ETL",
+    ],
   },
 ];
 
@@ -249,7 +259,7 @@ export const interests: Interest[] = [
   {
     title: "Reading",
     description:
-      "Lifelong sci-fi and fantasy reader. Dune, Foundation, Hyperion, Red Rising, The Cosmere, Dungeon Crawler Carl.",
+      "Lifelong sci-fi and fantasy reader, from the classics (Dune, Foundation, Hyperion) to modern series (Red Rising, The Cosmere, Dungeon Crawler Carl).",
     href: "/bookshelf",
   },
 ];
