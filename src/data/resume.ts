@@ -93,6 +93,13 @@ export const jobs: Job[] = [
           },
           {
             text: "Led technical due diligence and integration feasibility assessment for the acquisition of Quiller, an AI-powered fundraising platform; participated in strategic business decisions throughout the deal process.",
+            products: [
+              {
+                name: "Quiller",
+                description:
+                  "AI SaaS platform enabling mission-driven organizations to responsibly create high-impact content. Acquired in late 2025.",
+              },
+            ],
           },
           {
             text: "Established a culture of engineering excellence by implementing robust testing and CI/CD pipelines, rolling out AI-assisted development tooling (Copilot → Claude Code) across engineers and analysts, and achieving SOC 2 Type 1 certification.",
