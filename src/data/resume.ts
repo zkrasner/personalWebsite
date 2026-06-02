@@ -82,7 +82,7 @@ export const jobs: Job[] = [
               {
                 name: "Click Collective",
                 description:
-                  "Ingests and preprocesses billions of email exhaust events across hundreds of clients to predict future donor interactions.",
+                  "Ingests and processes billions of email exhaust events across hundreds of clients to predict future donor interactions.",
               },
               {
                 name: "Apical",
@@ -107,7 +107,7 @@ export const jobs: Job[] = [
         ],
       },
       {
-        title: "Board Member",
+        title: "Board Member & Technical Advisor",
         key: "board",
         dates: "Jan 2021 — Jan 2023",
         bullets: [
