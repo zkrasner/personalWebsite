@@ -44,6 +44,8 @@ export const summary = {
   links: {
     linkedin: "https://linkedin.com/in/zkrasner",
     github: "https://github.com/zkrasner",
+    email: "zkrasner@gmail.com",
+    resume: "/Zach-Krasner-Resume.pdf",
   },
 };
 

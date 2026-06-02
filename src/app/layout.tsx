@@ -58,6 +58,7 @@ const jsonLd = {
     "@type": "Organization",
     name: "Grassroots Analytics",
   },
+  email: "zkrasner@gmail.com",
   sameAs: ["https://linkedin.com/in/zkrasner", "https://github.com/zkrasner"],
   alumniOf: {
     "@type": "CollegeOrUniversity",

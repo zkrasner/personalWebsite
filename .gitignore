@@ -12,6 +12,7 @@
 *.png
 !public/projects/*.png
 *.pdf
+!public/*.pdf
 *.iml
 CC93505D-*.jpeg
 *.tsbuildinfo
