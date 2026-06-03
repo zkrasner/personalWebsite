@@ -108,9 +108,32 @@ export default function RoadTripMap({
     flightArcs,
     flightArcsForRender,
     rentalPathsData,
+    computedRouteLength,
+    projectedRoute,
+    routeCumLen,
   } = useMemo(() => {
     const path = buildPathBuilder();
     const projection = buildProjection();
+
+    // Project the route once and keep both the coords and cumulative arc
+    // lengths so the accent can be drawn as a partial path (a substring of the
+    // route d-string up to the truck's position) instead of via
+    // strokeDasharray. The dasharray approach is unreliable on iOS Chrome for
+    // very dense polylines (1500+ points) where the renderer's internal stroke
+    // length disagrees with the computed dash length, causing the dash pattern
+    // to repeat and light up disjoint chunks across the map.
+    const projectedRoute: { x: number; y: number }[] = [];
+    for (const c of roadtrip.route) {
+      const p = projection(c);
+      if (p) projectedRoute.push({ x: p[0], y: p[1] });
+    }
+    const routeCumLen: number[] = [0];
+    for (let i = 1; i < projectedRoute.length; i++) {
+      const dx = projectedRoute[i].x - projectedRoute[i - 1].x;
+      const dy = projectedRoute[i].y - projectedRoute[i - 1].y;
+      routeCumLen.push(routeCumLen[i - 1] + Math.hypot(dx, dy));
+    }
+    const computedRouteLength = routeCumLen[routeCumLen.length - 1] || 0;
     const allStates = feature(
       statesTopo as unknown as Topology,
       (statesTopo as unknown as Topology).objects.states,
@@ -176,7 +199,14 @@ export default function RoadTripMap({
         const projected: { x: number; y: number }[] = [];
         for (const c of raw) {
           const p = projection(c);
-          if (p) projected.push({ x: p[0], y: p[1] });
+          // Round to 2 decimals so the SVG `d` string is byte-identical between
+          // server-rendered HTML and client hydration (d3-geo's trig drifts in
+          // the last few bits between Node and the browser).
+          if (p)
+            projected.push({
+              x: Math.round(p[0] * 100) / 100,
+              y: Math.round(p[1] * 100) / 100,
+            });
         }
         if (projected.length < 2) return null;
         const cumLen: number[] = [0];
@@ -200,6 +230,9 @@ export default function RoadTripMap({
       flightArcs: arcs, // every flight — used by plane animation
       flightArcsForRender: uniqueArcs, // deduped — used for drawing arcs
       rentalPathsData,
+      computedRouteLength,
+      projectedRoute,
+      routeCumLen,
     };
   }, []);
 
@@ -277,9 +310,40 @@ export default function RoadTripMap({
   }, [progress, stopPositions, flightArcs, rentalPathsData, showFlights]);
 
   useEffect(() => {
-    if (routePathRef.current) {
-      setRouteLength(routePathRef.current.getTotalLength());
-    }
+    // iOS Chrome can return 0 from getTotalLength() before the path has been
+    // fully painted — for a polyline with 1500+ points the layout/paint takes
+    // longer than the synchronous effect window. Retry until we get a real
+    // length so the accent stroke's dash math actually hides it at progress=0.
+    let cancelled = false;
+    let raf = 0;
+    let timeoutId = 0;
+
+    const tryMeasure = (attempt = 0) => {
+      if (cancelled) return;
+      const path = routePathRef.current;
+      if (path) {
+        const len = path.getTotalLength();
+        if (len > 0) {
+          setRouteLength(len);
+          return;
+        }
+      }
+      if (attempt < 20) {
+        // First few attempts on RAF, then back off
+        if (attempt < 5) {
+          raf = requestAnimationFrame(() => tryMeasure(attempt + 1));
+        } else {
+          timeoutId = window.setTimeout(() => tryMeasure(attempt + 1), 100);
+        }
+      }
+    };
+
+    tryMeasure();
+    return () => {
+      cancelled = true;
+      cancelAnimationFrame(raf);
+      clearTimeout(timeoutId);
+    };
   }, [routeD]);
 
   useEffect(() => {
@@ -320,7 +384,55 @@ export default function RoadTripMap({
     });
   }, [progress, routeLength, stopPositions]);
 
-  const traveledOffset = routeLength - truck.len;
+  // Build the accent as a partial path — coords from the start of the route up
+  // to the truck's current position (with the final segment interpolated). This
+  // avoids strokeDasharray entirely; the dasharray approach was unreliable on
+  // iOS Chrome for the 1500+ point route polyline.
+  const lenScale =
+    routeLength > 0 && computedRouteLength > 0
+      ? computedRouteLength / routeLength
+      : 1;
+  const truckLenComputed = truck.len * lenScale;
+  const accentD = useMemo(() => {
+    if (
+      projectedRoute.length < 2 ||
+      routeCumLen.length === 0 ||
+      truckLenComputed <= 0
+    ) {
+      return "";
+    }
+    const target = Math.min(
+      truckLenComputed,
+      routeCumLen[routeCumLen.length - 1],
+    );
+    // Binary search for the last index with cumLen <= target
+    let lo = 0;
+    let hi = routeCumLen.length - 1;
+    while (lo < hi) {
+      const mid = (lo + hi + 1) >> 1;
+      if (routeCumLen[mid] <= target) lo = mid;
+      else hi = mid - 1;
+    }
+    const i = lo;
+    const parts: string[] = [];
+    for (let k = 0; k <= i; k++) {
+      const p = projectedRoute[k];
+      parts.push(`${k === 0 ? "M" : "L"}${p.x.toFixed(2)},${p.y.toFixed(2)}`);
+    }
+    // Interpolate to the exact truck position within the final segment
+    if (i < projectedRoute.length - 1) {
+      const segLen = routeCumLen[i + 1] - routeCumLen[i];
+      if (segLen > 0) {
+        const segT = (target - routeCumLen[i]) / segLen;
+        const a = projectedRoute[i];
+        const b = projectedRoute[i + 1];
+        const x = a.x + (b.x - a.x) * segT;
+        const y = a.y + (b.y - a.y) * segT;
+        parts.push(`L${x.toFixed(2)},${y.toFixed(2)}`);
+      }
+    }
+    return parts.join("");
+  }, [projectedRoute, routeCumLen, truckLenComputed]);
 
   return (
     <svg
@@ -338,6 +450,7 @@ export default function RoadTripMap({
         strokeLinejoin="round"
       />
       <path
+        ref={routePathRef}
         d={routeD}
         fill="none"
         stroke="var(--color-ink)"
@@ -346,17 +459,16 @@ export default function RoadTripMap({
         strokeLinejoin="round"
         strokeLinecap="round"
       />
-      <path
-        ref={routePathRef}
-        d={routeD}
-        fill="none"
-        stroke="var(--color-accent)"
-        strokeWidth="2.5"
-        strokeLinejoin="round"
-        strokeLinecap="round"
-        strokeDasharray={routeLength || undefined}
-        strokeDashoffset={traveledOffset || undefined}
-      />
+      {accentD && (
+        <path
+          d={accentD}
+          fill="none"
+          stroke="var(--color-accent)"
+          strokeWidth="2.5"
+          strokeLinejoin="round"
+          strokeLinecap="round"
+        />
+      )}
       {/* Wide invisible click target along the route so users can scrub by clicking the trail */}
       <path
         d={routeD}

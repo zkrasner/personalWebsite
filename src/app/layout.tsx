@@ -72,7 +72,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${playfair.variable} ${sourceSans.variable}`}>
+    <html
+      lang="en"
+      className={`${playfair.variable} ${sourceSans.variable}`}
+      suppressHydrationWarning
+    >
       {GA_ID && (
         <head>
           <Script
