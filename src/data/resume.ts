@@ -258,7 +258,7 @@ export const interests: Interest[] = [
   {
     title: "Travel",
     description:
-      "The year of travel leading up to our wedding. 34 states and 13 national parks.",
+      "The year of travel leading up to our wedding. 37 states and 13 national parks.",
     href: "/roadtrip",
   },
   {

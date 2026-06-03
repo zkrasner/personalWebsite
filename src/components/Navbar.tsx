@@ -84,7 +84,7 @@ export default function Navbar() {
 
       {/* Mobile dropdown */}
       <div
-        className={`hidden max-md:block overflow-hidden transition-all duration-300 ease-in-out ${open ? "max-h-80 opacity-100 border-t border-rule" : "max-h-0 opacity-0"}`}
+        className={`hidden max-md:block overflow-hidden transition-all duration-300 ease-in-out ${open ? "max-h-[32rem] opacity-100 border-t border-rule" : "max-h-0 opacity-0"}`}
       >
         <ul className="list-none">
           {sectionLinks.map((link) => (

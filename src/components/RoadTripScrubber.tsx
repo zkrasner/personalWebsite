@@ -19,6 +19,8 @@ interface RoadTripScrubberProps {
   progress: number;
   currentStopIndex: number;
   onProgressChange: (p: number) => void;
+  showFlights?: boolean;
+  onShowFlightsChange?: (v: boolean) => void;
 }
 
 export default function RoadTripScrubber({
@@ -27,6 +29,8 @@ export default function RoadTripScrubber({
   progress,
   currentStopIndex,
   onProgressChange,
+  showFlights = true,
+  onShowFlightsChange = () => {},
 }: RoadTripScrubberProps) {
   const trackRef = useRef<HTMLDivElement>(null);
 
@@ -48,12 +52,22 @@ export default function RoadTripScrubber({
   };
 
   const handleKey = (e: React.KeyboardEvent<HTMLDivElement>) => {
-    if (e.key === "ArrowLeft" && currentStopIndex > 0) {
+    if (e.key === "ArrowLeft" || e.key === "ArrowRight") {
       e.preventDefault();
-      onProgressChange(stopPositions[currentStopIndex - 1].t);
-    } else if (e.key === "ArrowRight" && currentStopIndex < stops.length - 1) {
-      e.preventDefault();
-      onProgressChange(stopPositions[currentStopIndex + 1].t);
+      // Build the navigable index list. When flights are hidden, only ground stops are navigable.
+      const navIndices: number[] = [];
+      stopPositions.forEach((_, i) => {
+        const isFlight = stops[i]?.kind === "flight";
+        if (!isFlight || showFlights) navIndices.push(i);
+      });
+      const cursor = navIndices.indexOf(currentStopIndex);
+      if (cursor === -1) return;
+      const nextCursor =
+        e.key === "ArrowLeft"
+          ? Math.max(0, cursor - 1)
+          : Math.min(navIndices.length - 1, cursor + 1);
+      const target = navIndices[nextCursor];
+      onProgressChange(stopPositions[target].t);
     } else if (e.key === "Home") {
       e.preventDefault();
       onProgressChange(0);
@@ -66,7 +80,6 @@ export default function RoadTripScrubber({
   return (
     <div className="w-full select-none">
       <div
-        ref={trackRef}
         role="slider"
         aria-label="Road trip progress"
         aria-valuemin={0}
@@ -77,37 +90,85 @@ export default function RoadTripScrubber({
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
         onKeyDown={handleKey}
-        className="relative h-2 bg-ink/15 rounded-full cursor-pointer focus-ring"
+        className="py-3 -my-3 cursor-pointer focus-ring rounded-full"
+        style={{ touchAction: "none" }}
       >
         <div
-          className="absolute inset-y-0 left-0 bg-accent rounded-full"
-          style={{ width: `${progress * 100}%` }}
-        />
-        {stopPositions.map((s, i) => (
+          ref={trackRef}
+          aria-hidden="true"
+          className="relative h-2 bg-ink/15 rounded-full"
+        >
           <div
-            key={s.id}
-            className={[
-              "absolute top-1/2 -translate-y-1/2 -translate-x-1/2 rounded-full border-2 border-paper transition-transform pointer-events-none",
-              i === currentStopIndex ? "w-4 h-4 bg-accent" : "w-3 h-3 bg-ink",
-            ].join(" ")}
-            style={{ left: `${s.t * 100}%` }}
-            aria-hidden="true"
+            className="absolute inset-y-0 left-0 bg-accent rounded-full"
+            style={{ width: `${progress * 100}%` }}
           />
-        ))}
-        <div
-          className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-5 h-5 rounded-full bg-paper border-2 border-ink pointer-events-none"
-          style={{ left: `${progress * 100}%` }}
-        />
-      </div>
-      {stops[currentStopIndex] && (
-        <div className="mt-3 text-xs font-semibold uppercase tracking-[0.08em] text-ink">
-          <span className="text-muted">
-            {formatDate(stops[currentStopIndex].date)}
-          </span>
-          <span className="mx-2 text-muted">·</span>
-          {stops[currentStopIndex].name}
+          {stopPositions.map((s, i) => {
+            const stop = stops[i];
+            const isFlight = stop?.kind === "flight";
+            const isRental = stop?.kind === "rental";
+            // Hide flight/rental notches when flights are hidden — except for
+            // park rentals (e.g. Hawaii Volcanoes) which keep showing their park glyph.
+            if ((isFlight || isRental) && !showFlights && !stop?.isPark)
+              return null;
+
+            // Determine glyph to display above the notch.
+            // Priority: park glyph > flight emoji. Rentals get no glyph (unless they're also parks).
+            let glyph: string | null = null;
+            if (stop?.isPark) glyph = stop.parkIcon ?? "🏞️";
+            else if (isFlight) glyph = stop.emoji ?? "✈️";
+
+            return (
+              <div key={s.id}>
+                <div
+                  className={[
+                    "absolute top-1/2 -translate-y-1/2 -translate-x-1/2 rounded-full border-2 border-paper transition-transform pointer-events-none",
+                    i === currentStopIndex
+                      ? "w-4 h-4 bg-accent"
+                      : "w-3 h-3 bg-ink",
+                  ].join(" ")}
+                  style={{ left: `${s.t * 100}%` }}
+                  aria-hidden="true"
+                />
+                {glyph && (
+                  <span
+                    aria-hidden="true"
+                    className="absolute -translate-x-1/2 text-[10px] text-ink pointer-events-none"
+                    style={{ left: `${s.t * 100}%`, top: "-14px" }}
+                  >
+                    {glyph}
+                  </span>
+                )}
+              </div>
+            );
+          })}
+          <div
+            className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-5 h-5 rounded-full bg-paper border-2 border-ink pointer-events-none"
+            style={{ left: `${progress * 100}%` }}
+          />
         </div>
-      )}
+      </div>
+      <div className="mt-3 flex items-center justify-between gap-4">
+        {stops[currentStopIndex] ? (
+          <div className="text-xs font-semibold uppercase tracking-[0.08em] text-ink">
+            <span className="text-muted">
+              {formatDate(stops[currentStopIndex].date)}
+            </span>
+            <span className="mx-2 text-muted">·</span>
+            {stops[currentStopIndex].name}
+          </div>
+        ) : (
+          <div />
+        )}
+        <button
+          type="button"
+          onClick={() => onShowFlightsChange(!showFlights)}
+          className="inline-flex items-center gap-1.5 px-3 py-1 border-2 border-ink rounded-card text-xs font-semibold uppercase tracking-[0.08em] text-ink hover:bg-ink hover:text-paper focus-ring shrink-0"
+          aria-label={showFlights ? "Hide flights" : "Show flights"}
+          aria-pressed={showFlights}
+        >
+          {showFlights ? "Hide" : "Show"} ✈️
+        </button>
+      </div>
     </div>
   );
 }

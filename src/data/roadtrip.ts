@@ -1,5 +1,7 @@
 import { route as routeFromFile } from "./roadtripRoute";
 
+export type RoadTripStopKind = "ground" | "flight" | "rental";
+
 export interface RoadTripStop {
   id: string;
   name: string;
@@ -10,10 +12,23 @@ export interface RoadTripStop {
   waypoints?: [number, number][]; // intermediate routing points (lng/lat) to force the OSRM route to pass through on the way to this stop; not rendered as notches
   notes?: string; // markdown, added later
   photos?: string[]; // /roadtrip/{id}/*.jpg, added later
+  kind?: RoadTripStopKind;
+  flightFrom?: [number, number];
+  emoji?: string;
+  isPark?: boolean;
+  parkIcon?: string; // emoji glyph above this stop's scrubber notch (defaults to 🏞️ when isPark)
+  roundTrip?: boolean; // rental only: drive out and back during this stop's bracket
+}
+
+export interface RoadTripStat {
+  value: string;
+  label: string;
 }
 
 export interface RoadTripData {
   intro: string;
+  body: string;
+  stats: RoadTripStat[];
   stops: RoadTripStop[]; // chronological, fly-home detours excluded
   route: [number, number][]; // ordered [lng, lat] polyline
 }
@@ -26,6 +41,14 @@ const stops: RoadTripStop[] = [
     date: "2021-06-06",
     lat: 42.6792,
     lng: -70.8412,
+  },
+  {
+    id: "portsmouth-nh",
+    name: "Portsmouth, NH",
+    state: "NH",
+    date: "2021-06-15",
+    lat: 43.0718,
+    lng: -70.7626,
   },
   {
     id: "portland-me",
@@ -42,6 +65,8 @@ const stops: RoadTripStop[] = [
     date: "2021-06-17",
     lat: 44.3876,
     lng: -68.2039,
+    parkIcon: "🌊",
+    isPark: true,
   },
   {
     id: "ipswich-return",
@@ -52,13 +77,20 @@ const stops: RoadTripStop[] = [
     lng: -70.8412,
   },
   {
+    id: "newport-ri",
+    name: "Newport, RI",
+    state: "RI",
+    date: "2021-07-16",
+    lat: 41.4901,
+    lng: -71.3128,
+  },
+  {
     id: "hoboken-1",
     name: "Hoboken, NJ",
     state: "NJ",
     date: "2021-07-16",
     lat: 40.744,
     lng: -74.0324,
-    waypoints: [[-71.3128, 41.4901]],
   },
   {
     id: "pittsburgh",
@@ -69,13 +101,20 @@ const stops: RoadTripStop[] = [
     lng: -79.9959,
   },
   {
+    id: "ann-arbor",
+    name: "Ann Arbor, MI",
+    state: "MI",
+    date: "2021-07-18",
+    lat: 42.2808,
+    lng: -83.743,
+  },
+  {
     id: "chicago",
     name: "Chicago, IL",
     state: "IL",
     date: "2021-07-18",
     lat: 41.8781,
     lng: -87.6298,
-    waypoints: [[-83.743, 42.2808]],
   },
   {
     id: "madison",
@@ -84,6 +123,14 @@ const stops: RoadTripStop[] = [
     date: "2021-07-25",
     lat: 43.0731,
     lng: -89.4012,
+  },
+  {
+    id: "jackson-mn",
+    name: "Jackson, MN",
+    state: "MN",
+    date: "2021-07-30",
+    lat: 43.6213,
+    lng: -94.9889,
   },
   {
     id: "sioux-falls",
@@ -100,10 +147,12 @@ const stops: RoadTripStop[] = [
     date: "2021-07-31",
     lat: 43.8554,
     lng: -101.9777,
+    parkIcon: "🏜️",
+    isPark: true,
   },
   {
     id: "mount-rushmore",
-    name: "Mount Rushmore, SD",
+    name: "Mount Rushmore National Memorial",
     state: "SD",
     date: "2021-07-31",
     lat: 43.8791,
@@ -124,6 +173,40 @@ const stops: RoadTripStop[] = [
     date: "2021-08-07",
     lat: 44.428,
     lng: -110.5885,
+    parkIcon: "♨️",
+    isPark: true,
+  },
+  {
+    id: "flight-bzn-bos",
+    name: "Boston, MA",
+    state: "MA",
+    date: "2021-08-12",
+    lat: 42.3656,
+    lng: -71.0096,
+    kind: "flight",
+    flightFrom: [-111.1521, 45.7775],
+  },
+  {
+    id: "rental-bos-rutland",
+    name: "Rutland, VT",
+    state: "VT",
+    date: "2021-08-13",
+    lat: 43.6106,
+    lng: -72.9726,
+    kind: "rental",
+    flightFrom: [-71.0096, 42.3656],
+    emoji: "🚙",
+    roundTrip: true,
+  },
+  {
+    id: "flight-bos-bzn",
+    name: "Bozeman, MT",
+    state: "MT",
+    date: "2021-08-15",
+    lat: 45.7775,
+    lng: -111.1521,
+    kind: "flight",
+    flightFrom: [-71.0096, 42.3656],
   },
   {
     id: "glacier",
@@ -133,6 +216,8 @@ const stops: RoadTripStop[] = [
     lat: 48.7596,
     lng: -113.787,
     waypoints: [[-111.3046, 45.2841]],
+    parkIcon: "🏔️",
+    isPark: true,
   },
   {
     id: "grand-teton",
@@ -142,6 +227,17 @@ const stops: RoadTripStop[] = [
     lat: 43.7904,
     lng: -110.6818,
     waypoints: [[-111.3046, 45.2841]],
+    parkIcon: "⛰️",
+    isPark: true,
+  },
+  {
+    id: "coeur-dalene",
+    name: "Coeur d'Alene, ID",
+    state: "ID",
+    date: "2021-08-29",
+    lat: 47.6776,
+    lng: -116.7804,
+    waypoints: [[-111.3046, 45.2841]],
   },
   {
     id: "seattle",
@@ -150,10 +246,6 @@ const stops: RoadTripStop[] = [
     date: "2021-08-29",
     lat: 47.6062,
     lng: -122.3321,
-    waypoints: [
-      [-111.3046, 45.2841],
-      [-116.78, 47.6779],
-    ],
   },
   {
     id: "rainier",
@@ -162,6 +254,8 @@ const stops: RoadTripStop[] = [
     date: "2021-09-04",
     lat: 46.8523,
     lng: -121.7603,
+    parkIcon: "🗻",
+    isPark: true,
   },
   {
     id: "snoqualmie",
@@ -180,6 +274,8 @@ const stops: RoadTripStop[] = [
     lat: 47.8021,
     lng: -123.6044,
     waypoints: [[-122.3321, 47.6062]],
+    parkIcon: "🌲",
+    isPark: true,
   },
   {
     id: "portland-or",
@@ -189,6 +285,26 @@ const stops: RoadTripStop[] = [
     lat: 45.5152,
     lng: -122.6784,
     waypoints: [[-122.3321, 47.6062]],
+  },
+  {
+    id: "flight-pdx-bos",
+    name: "Boston, MA",
+    state: "MA",
+    date: "2021-09-26",
+    lat: 42.3656,
+    lng: -71.0096,
+    kind: "flight",
+    flightFrom: [-122.5975, 45.5887],
+  },
+  {
+    id: "flight-bos-pdx",
+    name: "Portland, OR",
+    state: "OR",
+    date: "2021-10-02",
+    lat: 45.5887,
+    lng: -122.5975,
+    kind: "flight",
+    flightFrom: [-71.0096, 42.3656],
   },
   {
     id: "mount-hood",
@@ -205,6 +321,8 @@ const stops: RoadTripStop[] = [
     date: "2021-10-09",
     lat: 41.2132,
     lng: -124.0046,
+    parkIcon: "🌲",
+    isPark: true,
   },
   {
     id: "napa",
@@ -221,6 +339,8 @@ const stops: RoadTripStop[] = [
     date: "2021-10-15",
     lat: 37.8651,
     lng: -119.5383,
+    parkIcon: "⛰️",
+    isPark: true,
   },
   {
     id: "san-francisco",
@@ -229,6 +349,70 @@ const stops: RoadTripStop[] = [
     date: "2021-10-17",
     lat: 37.7749,
     lng: -122.4194,
+  },
+  {
+    id: "flight-sfo-bos",
+    name: "Boston, MA",
+    state: "MA",
+    date: "2021-10-19",
+    lat: 42.3656,
+    lng: -71.0096,
+    kind: "flight",
+    flightFrom: [-122.379, 37.6213],
+  },
+  {
+    id: "rental-bos-westport",
+    name: "Westport, CT",
+    state: "CT",
+    date: "2021-10-22",
+    lat: 41.1415,
+    lng: -73.3579,
+    kind: "rental",
+    flightFrom: [-71.0096, 42.3656],
+    emoji: "🚙",
+  },
+  {
+    id: "rental-westport-westchester",
+    name: "Westchester, NY",
+    state: "NY",
+    date: "2021-10-23",
+    lat: 41.0762,
+    lng: -73.8587,
+    kind: "rental",
+    flightFrom: [-73.3579, 41.1415],
+    emoji: "🚙",
+  },
+  {
+    id: "rental-westchester-manchester",
+    name: "Manchester, VT",
+    state: "VT",
+    date: "2021-10-24",
+    lat: 43.1632,
+    lng: -73.0723,
+    kind: "rental",
+    flightFrom: [-73.8587, 41.0762],
+    emoji: "🚙",
+  },
+  {
+    id: "rental-manchester-bos",
+    name: "Boston, MA",
+    state: "MA",
+    date: "2021-10-27",
+    lat: 42.3656,
+    lng: -71.0096,
+    kind: "rental",
+    flightFrom: [-73.0723, 43.1632],
+    emoji: "🚙",
+  },
+  {
+    id: "flight-bos-sfo",
+    name: "San Francisco, CA",
+    state: "CA",
+    date: "2021-10-29",
+    lat: 37.6213,
+    lng: -122.379,
+    kind: "flight",
+    flightFrom: [-71.0096, 42.3656],
   },
   {
     id: "big-sur",
@@ -263,6 +447,26 @@ const stops: RoadTripStop[] = [
     lng: -118.2437,
   },
   {
+    id: "flight-lax-bos",
+    name: "Boston, MA",
+    state: "MA",
+    date: "2021-11-23",
+    lat: 42.3656,
+    lng: -71.0096,
+    kind: "flight",
+    flightFrom: [-118.4085, 33.9416],
+  },
+  {
+    id: "flight-bos-lax",
+    name: "Los Angeles, CA",
+    state: "CA",
+    date: "2021-11-26",
+    lat: 33.9416,
+    lng: -118.4085,
+    kind: "flight",
+    flightFrom: [-71.0096, 42.3656],
+  },
+  {
     id: "las-vegas",
     name: "Las Vegas, NV",
     state: "NV",
@@ -277,6 +481,8 @@ const stops: RoadTripStop[] = [
     date: "2021-12-04",
     lat: 36.0544,
     lng: -112.1401,
+    parkIcon: "🏜️",
+    isPark: true,
   },
   {
     id: "monument-valley",
@@ -294,6 +500,8 @@ const stops: RoadTripStop[] = [
     lat: 38.3669,
     lng: -111.2615,
     waypoints: [[-109.045, 36.999]],
+    parkIcon: "🏜️",
+    isPark: true,
   },
   {
     id: "salt-lake-city",
@@ -319,6 +527,40 @@ const stops: RoadTripStop[] = [
     lat: 38.7331,
     lng: -109.5925,
     waypoints: [[-111.891, 40.7608]],
+    parkIcon: "🏜️",
+    isPark: true,
+  },
+  {
+    id: "denver",
+    name: "Denver, CO",
+    state: "CO",
+    date: "2021-12-17",
+    lat: 39.8561,
+    lng: -104.6737,
+    waypoints: [
+      [-111.891, 40.7608],
+      [-104.8202, 41.14],
+    ],
+  },
+  {
+    id: "flight-den-bos",
+    name: "Boston, MA",
+    state: "MA",
+    date: "2021-12-17",
+    lat: 42.3656,
+    lng: -71.0096,
+    kind: "flight",
+    flightFrom: [-104.6737, 39.8561],
+  },
+  {
+    id: "flight-bos-den",
+    name: "Denver, CO",
+    state: "CO",
+    date: "2021-12-26",
+    lat: 39.8561,
+    lng: -104.6737,
+    kind: "flight",
+    flightFrom: [-71.0096, 42.3656],
   },
   {
     id: "breckenridge",
@@ -327,11 +569,6 @@ const stops: RoadTripStop[] = [
     date: "2021-12-26",
     lat: 39.4817,
     lng: -106.0384,
-    waypoints: [
-      [-111.891, 40.7608],
-      [-104.8202, 41.14],
-      [-104.9903, 39.7392],
-    ],
   },
   {
     id: "vail",
@@ -342,13 +579,20 @@ const stops: RoadTripStop[] = [
     lng: -106.3742,
   },
   {
+    id: "breckenridge-return",
+    name: "Breckenridge, CO",
+    state: "CO",
+    date: "2022-01-23",
+    lat: 39.4817,
+    lng: -106.0384,
+  },
+  {
     id: "amarillo",
     name: "Amarillo, TX",
     state: "TX",
     date: "2022-02-04",
     lat: 35.222,
     lng: -101.8313,
-    waypoints: [[-106.0384, 39.4817]],
   },
   {
     id: "dallas",
@@ -383,12 +627,28 @@ const stops: RoadTripStop[] = [
     lng: -90.0715,
   },
   {
+    id: "hattiesburg",
+    name: "Hattiesburg, MS",
+    state: "MS",
+    date: "2022-02-18",
+    lat: 31.3271,
+    lng: -89.2903,
+  },
+  {
     id: "tuscaloosa",
     name: "Tuscaloosa, AL",
     state: "AL",
     date: "2022-02-18",
     lat: 33.2098,
     lng: -87.5692,
+  },
+  {
+    id: "atlanta",
+    name: "Atlanta, GA",
+    state: "GA",
+    date: "2022-02-19",
+    lat: 33.749,
+    lng: -84.388,
   },
   {
     id: "charleston",
@@ -399,12 +659,36 @@ const stops: RoadTripStop[] = [
     lng: -79.9311,
   },
   {
+    id: "fayetteville-nc",
+    name: "Fayetteville, NC",
+    state: "NC",
+    date: "2022-02-23",
+    lat: 35.0527,
+    lng: -78.8784,
+  },
+  {
     id: "washington-dc",
     name: "Washington, D.C.",
     state: "DC",
     date: "2022-02-23",
     lat: 38.9072,
     lng: -77.0369,
+  },
+  {
+    id: "baltimore",
+    name: "Baltimore, MD",
+    state: "MD",
+    date: "2022-02-26",
+    lat: 39.2904,
+    lng: -76.6122,
+  },
+  {
+    id: "wilmington-de",
+    name: "Wilmington, DE",
+    state: "DE",
+    date: "2022-02-26",
+    lat: 39.7459,
+    lng: -75.5466,
   },
   {
     id: "hoboken-2",
@@ -423,6 +707,66 @@ const stops: RoadTripStop[] = [
     lng: -70.8412,
   },
   {
+    id: "flight-bos-dca",
+    name: "Washington, D.C.",
+    state: "DC",
+    date: "2022-03-15",
+    lat: 38.8512,
+    lng: -77.0402,
+    kind: "flight",
+    flightFrom: [-71.0096, 42.3656],
+  },
+  {
+    id: "flight-dca-bos",
+    name: "Boston, MA",
+    state: "MA",
+    date: "2022-03-17",
+    lat: 42.3656,
+    lng: -71.0096,
+    kind: "flight",
+    flightFrom: [-77.0402, 38.8512],
+  },
+  {
+    id: "flight-bos-atl",
+    name: "Atlanta, GA",
+    state: "GA",
+    date: "2022-03-25",
+    lat: 33.6407,
+    lng: -84.4277,
+    kind: "flight",
+    flightFrom: [-71.0096, 42.3656],
+  },
+  {
+    id: "flight-atl-bos",
+    name: "Boston, MA",
+    state: "MA",
+    date: "2022-03-27",
+    lat: 42.3656,
+    lng: -71.0096,
+    kind: "flight",
+    flightFrom: [-84.4277, 33.6407],
+  },
+  {
+    id: "flight-bos-las",
+    name: "Las Vegas, NV",
+    state: "NV",
+    date: "2022-04-01",
+    lat: 36.084,
+    lng: -115.1537,
+    kind: "flight",
+    flightFrom: [-71.0096, 42.3656],
+  },
+  {
+    id: "flight-las-bos",
+    name: "Boston, MA",
+    state: "MA",
+    date: "2022-04-03",
+    lat: 42.3656,
+    lng: -71.0096,
+    kind: "flight",
+    flightFrom: [-115.1537, 36.084],
+  },
+  {
     id: "wedding",
     name: "Wedding",
     state: "MA",
@@ -430,11 +774,84 @@ const stops: RoadTripStop[] = [
     lat: 42.6792,
     lng: -70.8412,
   },
+  {
+    id: "flight-bos-ogg",
+    name: "Maui, HI",
+    state: "HI",
+    date: "2022-06-13",
+    lat: 20.8986,
+    lng: -156.4305,
+    kind: "flight",
+    flightFrom: [-71.0096, 42.3656],
+  },
+  {
+    id: "flight-ogg-lih",
+    name: "Kauai, HI",
+    state: "HI",
+    date: "2022-06-17",
+    lat: 21.976,
+    lng: -159.3389,
+    kind: "flight",
+    flightFrom: [-156.4305, 20.8986],
+  },
+  {
+    id: "flight-lih-koa",
+    name: "Big Island, HI",
+    state: "HI",
+    date: "2022-06-21",
+    lat: 19.7388,
+    lng: -156.0456,
+    kind: "flight",
+    flightFrom: [-159.3389, 21.976],
+  },
+  {
+    id: "volcanoes-np",
+    name: "Hawaii Volcanoes National Park",
+    state: "HI",
+    date: "2022-06-23",
+    lat: 19.4194,
+    lng: -155.2885,
+    kind: "rental",
+    flightFrom: [-156.0456, 19.7388],
+    emoji: "🚗",
+    parkIcon: "🌋",
+    isPark: true,
+    roundTrip: true,
+  },
+  {
+    id: "flight-koa-bos",
+    name: "Boston, MA",
+    state: "MA",
+    date: "2022-06-25",
+    lat: 42.3656,
+    lng: -71.0096,
+    kind: "flight",
+    flightFrom: [-156.0456, 19.7388],
+  },
+  {
+    id: "ipswich-final",
+    name: "Ipswich, MA",
+    state: "MA",
+    date: "2022-06-26",
+    lat: 42.6792,
+    lng: -70.8412,
+    waypoints: [[-71.0096, 42.3656]],
+  },
 ];
 
 export const roadtrip: RoadTripData = {
   intro:
-    "The year of travel leading up to our wedding. 34 states. 13 national parks. One truck.",
+    "The year of travel leading up to our wedding. 37 states. 13 national parks. One truck.",
+  body: "MK and I were living at her parents' place after leaving NYC when COVID hit. With no rental anchoring us, we bought a truck and set out to visit friends and national parks before our wedding. It turned into a whirlwind tour of the country, planning stops just a few weeks in advance and soaking in everything the country and its nature had to offer. It culminated in our wedding and honeymoon in Hawaii.",
+  stats: [
+    { value: "1", label: "Truck" },
+    { value: "37", label: "States" },
+    { value: "13", label: "National parks" },
+    { value: "25k+", label: "Miles driven" },
+    { value: "100s", label: "Miles hiked" },
+    { value: "20+", label: "Flights" },
+    { value: "1", label: "Unforgettable year" },
+  ],
   stops,
   route: routeFromFile,
 };

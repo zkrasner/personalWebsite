@@ -5,6 +5,11 @@ import type { RoadTripStop } from "@/data/roadtrip";
 export const MAP_WIDTH = 1100;
 export const MAP_HEIGHT = 650;
 
+// Fixed scrub-distance allocated per flight stop so the scrubber advances
+// a small, uniform amount through each flight bracket (instead of a
+// calendar-date-dependent amount).
+const FLIGHT_DISTANCE_UNITS = 100;
+
 export function buildProjection() {
   return geoAlbersUsa()
     .scale(1300)
@@ -31,20 +36,19 @@ export interface StopPosition {
   id: string;
   x: number;
   y: number;
-  t: number; // normalized position along the route polyline, 0..1
+  // 0..1 along the projected ground polyline.
+  // Flight stops inherit the polylineT of the most recent ground stop before them.
+  polylineT: number;
+  // 0..1 along the scrubber (distance-based, not calendar-based).
+  t: number;
 }
 
-/**
- * Project stops to SVG x/y and compute each stop's normalized position along the route polyline.
- * t-values are derived from cumulative arc length along the projected route (not straight-line
- * stop-to-stop), so they stay in sync with the truck's path.getPointAtLength reference frame.
- */
 export function computeStopPositions(
   stops: RoadTripStop[],
   route: [number, number][],
   projection: ReturnType<typeof buildProjection>,
 ): StopPosition[] {
-  // Project the full route polyline.
+  // Project the ground polyline (used for polylineT lookups).
   const projectedRoute = route.map((c) => projection(c) ?? [NaN, NaN]);
 
   // Cumulative arc lengths along the projected route.
@@ -54,22 +58,29 @@ export function computeStopPositions(
     const dy = projectedRoute[i][1] - projectedRoute[i - 1][1];
     cumLen.push(cumLen[i - 1] + Math.hypot(dx, dy));
   }
-  const total = cumLen[cumLen.length - 1] || 1;
+  const totalLen = cumLen[cumLen.length - 1] || 1;
 
-  // Walk the route chronologically so repeated geographic visits (e.g. Ipswich
-  // at start, return from Maine, and end) each match the correct occurrence
-  // along the polyline rather than the first geographic neighbor.
+  // First pass: project each stop and derive polylineT.
+  // Flight stops inherit the polylineT of the most recent ground stop.
   let searchStart = 0;
-  return stops.map((s) => {
+  let lastGroundPolylineT = 0;
+
+  const partials = stops.map((s) => {
     const p = projection([s.lng, s.lat]);
+    const xy = p === null ? { x: NaN, y: NaN } : { x: p[0], y: p[1] };
+
+    if (s.kind === "flight" || s.kind === "rental") {
+      return { id: s.id, x: xy.x, y: xy.y, polylineT: lastGroundPolylineT };
+    }
+
     if (p === null) {
       console.warn(
         `computeStopPositions: stop "${s.id}" projected to null (lat=${s.lat}, lng=${s.lng})`,
       );
-      return { id: s.id, x: NaN, y: NaN, t: 0 };
+      return { id: s.id, x: NaN, y: NaN, polylineT: lastGroundPolylineT };
     }
 
-    // Find the nearest projected route point at or after searchStart.
+    // Ground stop: find the nearest polyline point at or after searchStart.
     let bestI = searchStart;
     let bestD = Infinity;
     for (let i = searchStart; i < projectedRoute.length; i++) {
@@ -83,14 +94,30 @@ export function computeStopPositions(
       }
     }
     searchStart = bestI;
-
-    return {
-      id: s.id,
-      x: round(p[0], 2),
-      y: round(p[1], 2),
-      t: round(cumLen[bestI] / total, 6),
-    };
+    const polylineT = cumLen[bestI] / totalLen;
+    lastGroundPolylineT = polylineT;
+    return { id: s.id, x: xy.x, y: xy.y, polylineT };
   });
+
+  // Second pass: build cumulative scrub-distance (in normalized polylineT space).
+  // When two consecutive stops share the same polylineT (flight bracket with no driving),
+  // use a fixed small step so flight stops still advance the scrubber.
+  const flightStep = FLIGHT_DISTANCE_UNITS / totalLen;
+  const cumDist: number[] = [0];
+  for (let i = 1; i < partials.length; i++) {
+    const delta = partials[i].polylineT - partials[i - 1].polylineT;
+    const step = delta === 0 ? flightStep : delta;
+    cumDist.push(cumDist[i - 1] + step);
+  }
+  const totalCum = cumDist[cumDist.length - 1] || 1;
+
+  return partials.map((p, i) => ({
+    id: p.id,
+    x: round(p.x, 2),
+    y: round(p.y, 2),
+    polylineT: round(p.polylineT, 6),
+    t: round(cumDist[i] / totalCum, 6),
+  }));
 }
 
 function round(x: number, decimals: number): number {
