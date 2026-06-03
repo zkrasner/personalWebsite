@@ -6,7 +6,7 @@ export default function Hero() {
   return (
     <section
       id="about"
-      className="max-w-[1100px] mx-auto px-8 pt-40 pb-16 grid grid-cols-[1fr_320px] gap-16 items-center max-md:grid-cols-1 max-md:pt-28 max-md:gap-8"
+      className="max-w-[1100px] mx-auto px-8 pt-28 pb-16 grid grid-cols-[1fr_320px] gap-16 items-center max-md:grid-cols-1 max-md:pt-20 max-md:gap-8"
     >
       <div className="fade-in">
         <h1 className="font-heading font-black text-4xl leading-[0.95] tracking-tight mb-1 max-md:text-3xl max-sm:text-2xl">

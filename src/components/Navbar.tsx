@@ -15,6 +15,7 @@ export default function Navbar() {
 
   const pageLinks = [
     { label: "Projects", href: "/projects" },
+    { label: "Road Trip", href: "/roadtrip" },
     { label: "Bookshelf", href: "/bookshelf" },
   ];
 

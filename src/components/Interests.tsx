@@ -31,7 +31,7 @@ export default function Interests() {
           );
 
           const className =
-            "relative p-6 bg-warm rounded-card border-3 border-ink card-hover";
+            "relative h-full p-6 bg-warm rounded-card border-3 border-ink card-hover";
 
           return (
             <AccentOutline
@@ -47,9 +47,7 @@ export default function Interests() {
                   {content}
                 </a>
               ) : (
-                <div className={`${className} h-full relative z-2`}>
-                  {content}
-                </div>
+                <div className={`${className} relative z-2`}>{content}</div>
               )}
             </AccentOutline>
           );

@@ -258,7 +258,8 @@ export const interests: Interest[] = [
   {
     title: "Travel",
     description:
-      "Road tripped around the US for a year, seeing 36 states and 16 national parks.",
+      "The year of travel leading up to our wedding. 34 states and 13 national parks.",
+    href: "/roadtrip",
   },
   {
     title: "Hiking",
