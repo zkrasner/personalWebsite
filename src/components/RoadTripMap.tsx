@@ -367,11 +367,6 @@ export default function RoadTripMap({
         strokeLinecap="round"
         style={{ cursor: "pointer" }}
         onPointerDown={(e) => {
-          // Skip on touch devices — the trail target on iOS produces
-          // unreliable hit-point math (taps frequently resolve near the end of
-          // the polyline, blasting progress to ~100%). Touch users have the
-          // scrubber + notches for navigation.
-          if (e.pointerType === "touch") return;
           const path = routePathRef.current;
           const svg = e.currentTarget.ownerSVGElement;
           if (!path || !svg || routeLength === 0) return;

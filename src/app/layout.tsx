@@ -1,4 +1,4 @@
-import type { Metadata, Viewport } from "next";
+import type { Metadata } from "next";
 import Script from "next/script";
 import { Playfair_Display, Source_Sans_3 } from "next/font/google";
 import FadeInObserver from "@/components/FadeInObserver";
@@ -17,12 +17,6 @@ const sourceSans = Source_Sans_3({
   subsets: ["latin"],
   display: "swap",
 });
-
-export const viewport: Viewport = {
-  width: "device-width",
-  initialScale: 1,
-  maximumScale: 5,
-};
 
 export const metadata: Metadata = {
   title: "Zach Krasner",
