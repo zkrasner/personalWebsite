@@ -31,10 +31,11 @@ export default function RoadTripPageClient() {
       <Navbar />
       <main id="main-content" className="flex-1 w-full">
         <section className="max-w-[1100px] mx-auto px-8 pt-28 pb-12 max-md:pt-20">
-          <h1 className="font-heading font-black text-4xl leading-[0.95] tracking-tight mb-3 max-md:text-3xl">
-            Road Trip
+          <h1 className="font-heading font-black text-4xl leading-[0.95] tracking-tight mb-1 max-md:text-3xl max-sm:text-2xl">
+            Road
+            <span className="block text-accent">Trip</span>
           </h1>
-          <p className="font-heading italic text-lg text-muted">
+          <p className="font-heading italic text-lg text-muted mt-6 pt-4 border-t-2 border-ink">
             {roadtrip.intro}
           </p>
         </section>
